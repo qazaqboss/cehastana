@@ -4,7 +4,8 @@ SITE_URL='https://cehastana.vercel.app'  # поменяйте, если прое
 t=(d/'src/template.html').read_text()
 b=base64.b64encode((d/'src/site.jpg').read_bytes()).decode()
 page=t.replace('__SITE__',b)
-(d/'index.html').write_text(page)  # версия для Artifact
+(d/'artifact').mkdir(exist_ok=True)
+(d/'artifact/index.html').write_text(page)  # версия для Artifact
 title='Цех 21×80 м · Astana Baza'
 desc='Металлокаркас с мостовым краном 10 т: 3D-модель КМД, генплан, смета. Каркас с доставкой до Астаны — 27,5 млн ₸.'
 head=f'''<!doctype html>
@@ -16,18 +17,22 @@ head=f'''<!doctype html>
 <meta property="og:url" content="{SITE_URL}/">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{SITE_URL}/og.png">
+<meta property="og:image" content="{SITE_URL}/og.jpg?v=2">
+<meta property="og:image:secure_url" content="{SITE_URL}/og.jpg?v=2">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Цех 21×80 м — металлокаркас, 27,5 млн ₸ с доставкой до Астаны">
+<meta property="og:site_name" content="Astana Baza">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
-<meta name="twitter:image" content="{SITE_URL}/og.png">
+<meta name="twitter:image" content="{SITE_URL}/og.jpg?v=2">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>:root{{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}}img{{max-width:100%}}[hidden]{{display:none!important}}</style>
 '''
 title_end=page.index('</title>')+len('</title>')
 style_end=page.index('</script>',page.index('importmap'))+len('</script>')
 full=head+page[:style_end]+'\n</head><body>\n'+page[style_end:]+'\n</body></html>\n'
-(d/'site/index.html').write_text(full)
+(d/'index.html').write_text(full)  # сайт для Vercel (корень репозитория)
