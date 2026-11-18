@@ -16,6 +16,7 @@
   --bg:#0f1011; --card:#17181a; --ink:#e8e8e3; --muted:#9a9c98; --rule:#2d2f31;
   --steel:#c9d3dd; --red:#e0485c; --red-soft:#e0485c26; --ok:#5fb58c; --warn:#e19a4a; color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
+html{overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-body);overflow-x:clip}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
 .gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -43,7 +44,14 @@ h3{font:600 17px/1.25 var(--f-disp);margin:0 0 8px}
 .plate{position:relative;background:var(--card);box-shadow:0 0 0 1px var(--rule)}
 .c{position:absolute;font:11px/1 var(--f-mono);color:var(--muted);padding:12px 14px;white-space:nowrap;z-index:3;pointer-events:none}
 .c.tl{top:0;left:0;color:var(--ink)}.c.tr{top:0;right:0}.c.bl{bottom:0;left:0}.c.br{bottom:0;right:0;color:var(--ink);font-variant-numeric:tabular-nums;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis}
-.fig{position:relative;height:min(70vh,660px);min-height:380px;touch-action:none}
+.fig{position:relative;height:min(70vh,660px);min-height:380px;touch-action:pan-y}
+.fig canvas{touch-action:pan-y!important}
+.plate.fs{position:fixed;inset:0;z-index:60;box-shadow:none;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.plate.fs .fig{height:100%;min-height:0;touch-action:none}.plate.fs .fig canvas{touch-action:none!important}
+body.lock{overflow:hidden}
+.fsbtn{position:absolute;right:14px;bottom:40px;z-index:5;width:44px;height:44px;padding:0;font-size:20px;display:grid;place-items:center}
+.plate.fs .fsbtn{bottom:calc(16px + env(safe-area-inset-bottom,0px));right:max(16px,env(safe-area-inset-right,0px))}
+.hint{display:none}
 .fig canvas{display:block;width:100%;height:100%}
 .lbl{font:500 11px/1 var(--f-mono);color:var(--ink);pointer-events:none}
 .ax{width:22px;height:22px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--card);font-size:10.5px}
@@ -74,7 +82,10 @@ tfoot td{font-weight:600;border-bottom:0}
 /* site */
 .site{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
 .sitefig{position:relative;background:#222;box-shadow:0 0 0 1px var(--rule);overflow:hidden}
-.sitefig svg{display:block;width:100%;height:auto;touch-action:none;user-select:none}
+.sitefig svg{display:block;width:100%;height:auto;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.sitefig.move svg{touch-action:none}
+.sitefig.move{box-shadow:0 0 0 3px var(--red)}
+#moveBtn{display:none}
 .sitefig .c{color:#fff;text-shadow:0 1px 2px #000}
 #bld{cursor:grab}#bld.drag{cursor:grabbing}
 .status{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;margin:14px 0;font-size:14px;border-left:3px solid var(--warn);background:var(--card);box-shadow:0 0 0 1px var(--rule)}
@@ -112,7 +123,35 @@ ol.steps li b{display:block;font-family:var(--f-disp);margin-bottom:4px}
 ol.steps li span{color:var(--muted)}
 footer{padding-block:28px 48px;color:var(--muted);font-size:13px}
 @media(max-width:980px){.grid3,.site{grid-template-columns:minmax(0,1fr)}.scope{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}ol.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
-@media(max-width:640px){.facts,.totals{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.totals .grand{grid-column:1/-1}.scope,ol.steps{grid-template-columns:minmax(0,1fr)}.fig{height:62vh}.c.tr{display:none}.toolbar button{height:34px;padding:0 9px;font-size:12px}}
+@media(max-width:640px){
+nav.top{position:static}nav.top .wrap{flex-wrap:wrap;overflow:visible;padding-block:8px;gap:2px 14px}nav.top b{width:100%;margin:0 0 2px}nav.top a{padding:6px 0;font-size:13px}
+html{scroll-padding-top:0}
+.fig{height:68svh;min-height:420px}
+.toolbar{top:36px;left:10px;right:10px;gap:4px}.toolbar .sep{display:none}
+.toolbar button{height:32px;padding:0 8px;font-size:12px}
+.plate.fs .toolbar{top:calc(36px + env(safe-area-inset-top,0px))}
+.lg{display:none}
+.hint{display:block;position:absolute;left:0;right:0;bottom:-30px;text-align:center;font:11px var(--f-mono);color:var(--muted)}
+.plate{margin-bottom:34px}.plate.fs{margin:0}.plate.fs .hint{display:none}
+.c.br{display:none}
+#moveBtn{display:inline-block}
+.fig .ax,.fig .dim{display:none}.fig .tag{font-size:10px;padding:3px 5px}
+h1{font-size:40px}
+.row{grid-template-columns:minmax(0,1fr) 110px}
+/* смета карточками */
+.smeta thead{display:none}
+.smeta,.smeta tbody{display:block}
+.smeta tr{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:4px 10px;padding:12px 0;border-bottom:1px solid var(--rule);align-items:center}
+.smeta td{border:0;padding:0}
+.smeta td:nth-child(1){grid-row:1/3;align-self:start;padding-top:2px}
+.smeta td.nm{grid-column:2/4;min-width:0}
+.smeta td:nth-child(3){display:none}
+.smeta td:nth-child(4){grid-column:2;text-align:left;color:var(--muted);font-size:13px}
+.smeta td:nth-child(4)::after{content:attr(data-u)}
+.smeta td:nth-child(5){grid-column:2;grid-row:3;text-align:left}
+.smeta td:nth-child(5) input{width:130px}
+.smeta td.sum{grid-column:3;grid-row:2/4;align-self:end;font-weight:600;font-size:15px}
+.facts,.totals{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.totals .grand{grid-column:1/-1}.scope,ol.steps{grid-template-columns:minmax(0,1fr)}.fig{height:62vh}.c.tr{display:none}.toolbar button{height:34px;padding:0 9px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 html{scroll-behavior:smooth;scroll-padding-top:60px}
 </style>
@@ -142,7 +181,7 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
     <div class="c br" id="readout">—</div>
     <div class="toolbar">
       <div class="seg" role="group" aria-label="Стадия">
-        <button id="stFrame" aria-pressed="false">Каркас · 27,5 млн</button>
+        <button id="stFrame" aria-pressed="false">Каркас<span class="lg"> · 27,5 млн</span></button>
         <button id="stClad" aria-pressed="false">+ Обшивка</button>
         <button id="stFull" aria-pressed="true">Под ключ</button>
       </div>
@@ -156,6 +195,8 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
       </div>
     </div>
     <div class="fig" id="fig"></div>
+    <button class="fsbtn" id="fsBtn" aria-label="На весь экран" title="На весь экран">⛶</button>
+    <div class="hint">вбок — вращать · вверх-вниз — листать · ⛶ — полный экран</div>
   </div>
 
   <div class="grid3">
@@ -201,7 +242,7 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
   <h2>Цех на территории Astana Baza</h2>
   <p class="lead">Граница участка — по вашему замеру в Google Картах (периметр 250 м). Цех поставлен сбоку, вдоль западной стороны у существующих построек, как отмечено красным. Корпус можно перетащить пальцем и повернуть.</p>
   <div class="site">
-    <div class="sitefig">
+    <div class="sitefig" id="siteFig">
       <div class="c tl">Рис. 2 · Генплан, М ≈ 1:1000</div>
       <svg id="siteSvg" viewBox="0 0 1030 1253" role="img" aria-label="Спутниковый снимок участка с контуром цеха">
         <defs>
@@ -228,6 +269,7 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
         <button id="rotL">↺ 2°</button><button id="rotR">↻ 2°</button>
         <button id="rot90">Повернуть на 90°</button>
         <button id="resetPos">Как на эскизе</button>
+        <button id="moveBtn" aria-pressed="false">Двигать корпус</button>
       </div>
       <h3 style="margin-top:18px">Длина цеха</h3>
       <div class="seg" role="group" aria-label="Длина цеха" id="lenSeg">
@@ -328,6 +370,14 @@ let cam=ortho;
 const ctlO=new OrbitControls(ortho,renderer.domElement);ctlO.enableDamping=true;
 const ctlP=new OrbitControls(persp,renderer.domElement);ctlP.enableDamping=true;ctlP.enabled=false;
 let ctl=ctlO;
+renderer.domElement.style.touchAction='';
+const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ctlO.autoRotate=!calm;ctlO.autoRotateSpeed=0.55;
+const stopSpin=()=>{ctlO.autoRotate=false;};ctlO.addEventListener('start',stopSpin);ctlP.addEventListener('start',stopSpin);
+const plate=fig.parentElement;
+$('fsBtn').onclick=()=>{const on=!plate.classList.contains('fs');plate.classList.toggle('fs',on);document.body.classList.toggle('lock',on);
+  $('fsBtn').textContent=on?'✕':'⛶';$('fsBtn').setAttribute('aria-label',on?'Закрыть полный экран':'На весь экран');requestAnimationFrame(()=>{fitZoom(curView);resize();});};
+addEventListener('keydown',e=>{if(e.key==='Escape'&&plate.classList.contains('fs'))$('fsBtn').click();});
 
 scene.add(new THREE.HemisphereLight(0xffffff,0x8a857c,1.6));
 const sun=new THREE.DirectionalLight(0xffffff,2.2);sun.castShadow=true;
@@ -613,7 +663,7 @@ function view(v){
   fitZoom(v);ctlO.update();resize();
 }
 let base=1;
-function fitZoom(v){const {S,L,ridge}=P;base=v==='end'?Math.max(S*1.9,ridge*2.6):v==='plan'?Math.max(L*1.2,S*2.6):Math.max(L*1.32,(ridge+14)*2);ortho.zoom=1;}
+function fitZoom(v){const {S,L,ridge}=P;base=v==='end'?Math.max(S*1.9,ridge*2.6):v==='plan'?Math.max(L*1.2,S*2.6):Math.max(L*1.32,(ridge+14)*2);if(fig.clientWidth<fig.clientHeight)base*=1.12;ortho.zoom=1;}
 function resize(){
   const w=fig.clientWidth,h=fig.clientHeight,asp=w/h;
   renderer.setSize(w,h,false);lr.setSize(w,h);
@@ -660,7 +710,7 @@ function renderSmeta(){
     body.innerHTML=ROWS.map(r=>`<tr id="r-${r.id}">
       <td><input type="checkbox" id="on-${r.id}" ${state[r.id].on?'checked':''} ${r.lock?'disabled':''} aria-label="Включить: ${r.name}" style="width:18px;height:18px;accent-color:var(--red)"></td>
       <td class="nm">${r.name}${r.sub?`<span class="sub">${r.sub}</span>`:''}</td><td>${r.unit}</td>
-      <td class="n" id="q-${r.id}"></td>
+      <td class="n" id="q-${r.id}" data-u=" ${r.unit}"></td>
       <td class="n"><input type="number" id="pr-${r.id}" min="0" step="100" value="${state[r.id].price}" aria-label="Цена за единицу: ${r.name}"></td>
       <td class="n sum" id="s-${r.id}"></td></tr>`).join('');
     for(const r of ROWS){
@@ -757,10 +807,11 @@ function renderSite(){
 plotDims();
 function svgPt(e){const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse());}
 let drag=null;
-bld.addEventListener('pointerdown',e=>{const p=svgPt(e);drag={dx:p.x-pose.x,dy:p.y-pose.y};bld.setPointerCapture(e.pointerId);bld.classList.add('drag');e.preventDefault();});
+bld.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!$('siteFig').classList.contains('move'))return;const p=svgPt(e);drag={dx:p.x-pose.x,dy:p.y-pose.y};bld.setPointerCapture(e.pointerId);bld.classList.add('drag');e.preventDefault();});
 bld.addEventListener('pointermove',e=>{if(!drag)return;const p=svgPt(e);pose.x=p.x-drag.dx;pose.y=p.y-drag.dy;renderSite();});
 const end=()=>{drag=null;bld.classList.remove('drag');};bld.addEventListener('pointerup',end);bld.addEventListener('pointercancel',end);
 $('rotL').onclick=()=>{pose.a-=2;renderSite();};$('rotR').onclick=()=>{pose.a+=2;renderSite();};$('rot90').onclick=()=>{pose.a+=90;renderSite();};
+$('moveBtn').onclick=()=>{const on=$('siteFig').classList.toggle('move');$('moveBtn').setAttribute('aria-pressed',on);$('moveBtn').textContent=on?'Готово':'Двигать корпус';};
 $('resetPos').onclick=()=>{pose=defaultPose(P.L);renderSite();};
 function syncLenSeg(){const L=parseFloat($('pL').value);document.querySelectorAll('[data-len]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.len===L));}
 document.querySelectorAll('[data-len]').forEach(b=>b.onclick=()=>{
