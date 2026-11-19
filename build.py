@@ -1,14 +1,14 @@
 import base64,pathlib
 d=pathlib.Path(__file__).parent
 SITE_URL='https://cehastana.vercel.app'
-OG_IMG='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-share-3.jpg'  # картинка с CDN GitHub, не зависит от Vercel  # поменяйте, если проект в Vercel назван иначе
+OG_IMG='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-share-4.jpg'  # картинка с CDN GitHub, не зависит от Vercel  # поменяйте, если проект в Vercel назван иначе
 t=(d/'src/template.html').read_text()
 b=base64.b64encode((d/'src/site.jpg').read_bytes()).decode()
 page=t.replace('__SITE__',b)
 (d/'artifact').mkdir(exist_ok=True)
 (d/'artifact/index.html').write_text(page)  # версия для Artifact
 title='Цех 21×50 м · Astana Baza'
-desc='Металлокаркас 21×50 м с мостовым краном 10 т на территории базы: 3D-модель, генплан, подъезд и смета.'
+desc='Цех 21×50 м с двумя линиями сухих смесей и сушкой песка 20 т/ч на территории базы: 3D-модель, генплан, оборудование и смета.'
 head=f'''<!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">

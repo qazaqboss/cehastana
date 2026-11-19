@@ -55,6 +55,7 @@ body.lock{overflow:hidden}
 .fig canvas{display:block;width:100%;height:100%}
 .lbl{font:500 11px/1 var(--f-mono);color:var(--ink);pointer-events:none}
 .ax{width:22px;height:22px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--card);font-size:10.5px}
+.nm{display:flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--ink);padding:2px 6px 2px 2px;font-size:10.5px;white-space:nowrap}.nm b{background:var(--ink);color:var(--card);padding:1px 5px;font-weight:500}.nm span{display:none}.names .nm span{display:inline}.nm{padding:1px}.names .nm{padding:2px 6px 2px 1px}
 .dim{background:var(--card);padding:2px 4px;font-size:11px}
 .tag{background:var(--ink);color:var(--card);padding:4px 6px;font-size:11px}
 .toolbar{position:absolute;left:14px;top:40px;right:14px;display:flex;flex-wrap:wrap;gap:6px;z-index:4;pointer-events:none}
@@ -128,13 +129,15 @@ ol.route li .code{font:500 11px var(--f-mono);color:var(--muted);letter-spacing:
 ol.route li b{font:600 17px/1.25 var(--f-disp)}
 ol.route li span{color:var(--muted)}
 ol.route li .num{font:600 15px var(--f-disp);color:var(--ink);font-variant-numeric:tabular-nums}
+.eqgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+table.eqt td{font-size:13px;padding:6px 4px}table.eqt td:first-child{color:var(--red);font:500 12px var(--f-mono);width:44px;text-align:left}table.eqt td:last-child{color:var(--muted)}
 ol.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--rule);box-shadow:0 0 0 1px var(--rule);counter-reset:s}
 ol.steps li{background:var(--card);padding:16px;font-size:14px;counter-increment:s}
 ol.steps li::before{content:counter(s);display:block;font:600 28px var(--f-disp);color:var(--red);margin-bottom:6px}
 ol.steps li b{display:block;font-family:var(--f-disp);margin-bottom:4px}
 ol.steps li span{color:var(--muted)}
 footer{padding-block:28px 48px;color:var(--muted);font-size:13px}
-@media(max-width:980px){.grid3,.site{grid-template-columns:minmax(0,1fr)}.scope,ol.route{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}ol.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:980px){.eqgrid{grid-template-columns:minmax(0,1fr)}.grid3,.site{grid-template-columns:minmax(0,1fr)}.scope,ol.route{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}ol.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 @media(max-width:640px){
 nav.top{position:static}nav.top .wrap{flex-wrap:wrap;overflow:visible;padding-block:8px;gap:2px 14px}nav.top b{width:100%;margin:0 0 2px}nav.top a{padding:6px 0;font-size:13px}
 html{scroll-padding-top:0}
@@ -147,7 +150,7 @@ html{scroll-padding-top:0}
 .plate{margin-bottom:34px}.plate.fs{margin:0}.plate.fs .hint{display:none}
 .c.br{display:none}
 #moveBtn{display:inline-block}
-.fig .ax,.fig .dim{display:none}.fig .tag{font-size:10px;padding:3px 5px}
+.fig .ax,.fig .dim{display:none}.fig .nm span{display:none}.fig .nm{padding:1px}.fig .tag{font-size:10px;padding:3px 5px}
 h1{font-size:40px}
 .row{grid-template-columns:minmax(0,1fr) 110px}
 /* смета карточками */
@@ -171,14 +174,14 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
 
 <nav class="top gut"><div class="wrap">
   <b id="navT">Цех 21×50 · Astana Baza</b>
-  <a href="#model">3D-модель</a><a href="#site">Территория</a><a href="#road">Подъезд</a><a href="#scope">Состав</a><a href="#smeta">Смета</a><a href="#steel">Металл</a><a href="#order">Порядок работ</a>
+  <a href="#model">3D-модель</a><a href="#site">Территория</a><a href="#equip">Оборудование</a><a href="#road">Подъезд</a><a href="#scope">Состав</a><a href="#smeta">Смета</a><a href="#steel">Металл</a><a href="#order">Порядок работ</a>
 </div></nav>
 
 <!-- 1. HERO + 3D -->
 <section id="model" class="gut"><div class="wrap">
   <p class="eyebrow">Лист 1 · Проект производственного цеха</p>
   <h1>Цех <em id="hDim">21 × 50 м</em> с мостовым краном на Astana Baza</h1>
-  <p class="lead" id="heroLead">Металлокаркас по схеме КМД: 11 поперечных рам с шагом 5 м, прогоны, фахверк, связи и подкрановые пути под кран 10 т. Цех встаёт на территорию базы вдоль западной стороны, рядом с существующими постройками, с новым проездом вдоль восточной стены. На той же модели — обшивка профлистом, фундаменты, угольная котельная, трансформаторная подстанция и смета.</p>
+  <p class="lead" id="heroLead">Металлокаркас по схеме КМД: 11 поперечных рам с шагом 5 м, прогоны, фахверк, связи и подкрановые пути под кран 10 т. Внутри вдоль стен — две линии сухих смесей EasyMix, у северного торца 8 силосов, снаружи с запада — сушка песка 20 т/ч с газовой горелкой. Вся территория в бетоне, въезд через КПП. На той же модели — обшивка, фундаменты, котельная, КТП и смета.</p>
   <div class="facts">
     <div class="fact hl"><div class="v" id="fFrame">— <small>млн ₸</small></div><div class="k" id="fFrameK">каркас с доставкой до Астаны, без монтажа</div></div>
     <div class="fact"><div class="v" id="fArea">1 050 <small>м²</small></div><div class="k">площадь цеха в осях</div></div>
@@ -187,7 +190,7 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
   </div>
 
   <div class="plate">
-    <div class="c tl">Рис. 1 · Цех на базе, 3D</div>
+    <div class="c tl">Рис. 1 · Цех и оборудование, 3D</div>
     <div class="c tr">вращать — тянуть · масштаб — щипок/колесо</div>
     <div class="c bl" id="stageLbl">стадия: готовый цех</div>
     <div class="c br" id="readout">—</div>
@@ -195,7 +198,8 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
       <div class="seg" role="group" aria-label="Стадия">
         <button id="stFrame" aria-pressed="false">Каркас</button>
         <button id="stClad" aria-pressed="false">+ Обшивка</button>
-        <button id="stFull" aria-pressed="true">Под ключ</button>
+        <button id="stFull" aria-pressed="false">Под ключ</button>
+        <button id="stEquip" aria-pressed="true">Оборудование</button>
       </div>
       <span class="sep"></span>
       <div class="seg" role="group" aria-label="Виды">
@@ -235,8 +239,11 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
       <label class="chk"><input type="checkbox" data-l="wall" checked> Стеновой профлист</label>
       <label class="chk"><input type="checkbox" data-l="roof" checked> Кровля</label>
       <label class="chk"><input type="checkbox" data-l="util" checked> Котельная и КТП</label>
-      <label class="chk"><input type="checkbox" data-l="site" checked> Территория базы: снимок и проезд</label>
+      <label class="chk"><input type="checkbox" data-l="equip" checked> Линии сухих смесей (внутри)</label>
+      <label class="chk"><input type="checkbox" data-l="dryer" checked> Сушка песка, бункер, погрузчик</label>
+      <label class="chk"><input type="checkbox" data-l="site" checked> Территория: бетон, ограждение, КПП</label>
       <label class="chk"><input type="checkbox" data-l="dims" checked> Оси и размеры</label>
+      <label class="chk"><input type="checkbox" id="namesChk"> Названия у номеров оборудования</label>
       <div class="btns"><button id="bPlay" aria-pressed="true">Кран едет</button></div>
       <label for="spd" class="note" style="display:block">Скорость крана</label>
       <input id="spd" class="speed" type="range" min="0.2" max="3" step="0.1" value="1">
@@ -259,12 +266,14 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
       <div class="c tl">Рис. 2 · Генплан, М ≈ 1:800</div>
       <svg id="siteSvg" viewBox="0 0 1232 982" role="img" aria-label="Спутниковый снимок базы с контуром цеха, проездом и котельной">
         <defs>
+          <pattern id="conc" width="48.7" height="48.7" patternUnits="userSpaceOnUse" patternTransform="rotate(18.4)"><rect width="48.7" height="48.7" fill="#cfccc4" fill-opacity=".72"/><path d="M48.7 0V48.7H0" fill="none" stroke="#8f8b82" stroke-width="1.2"/></pattern>
           <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#c8243a" fill-opacity=".42"/><line x1="0" y1="0" x2="0" y2="10" stroke="#fff" stroke-opacity=".35" stroke-width="3"/></pattern>
           <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#f2c230"/></marker>
         </defs>
         <image href="data:image/jpeg;base64,__SITE__" x="0" y="0" width="1232" height="982"/>
         <rect x="0" y="0" width="1232" height="982" fill="#000" fill-opacity=".2"/>
-        <polygon id="plot" points="553,200 1125,382 948,912 355,712" fill="#ffffff" fill-opacity=".05" stroke="#fff" stroke-width="3" stroke-dasharray="12 8"/>
+        <polygon id="plot" points="553,200 1125,382 948,912 355,712" fill="url(#conc)" stroke="#2a3542" stroke-width="4"/>
+        <polygon points="553,200 1125,382 948,912 355,712" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2 6"/>
         <g id="plotDims" font-family="JetBrains Mono,monospace" font-size="20" fill="#fff" stroke="#000" stroke-width="4" paint-order="stroke"></g>
         <g id="route"></g>
         <g id="bld"></g>
@@ -300,11 +309,13 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
         <dt>Отступы</dt><dd id="kvGap">—</dd>
         <dt>Котельная</dt><dd>блок-модуль 6 × 4 м, труба 16 м, склад угля 5 × 5 м — у северного торца</dd>
         <dt>КТП</dt><dd>3,2 × 2,4 м рядом с котельной, у проезда</dd>
-        <dt>Проезд</dt><dd id="kvRoad">—</dd>
+        <dt>Покрытие</dt><dd id="kvRoad">—</dd>
+        <dt>Въезд</dt><dd>КПП 3 × 2,5 м, откатные ворота 6 м, шлагбаум; забор 2 м по периметру</dd>
+        <dt>Сушка песка</dt><dd>с западной стороны: бункер 3 т → конвейер → барабан 10 × 1,4 м → элеватор в силос</dd>
       </dl>
       <div class="legend">
         <span><i style="background:#c8243a"></i>новый цех</span>
-        <span><i style="background:#8d8a83"></i>новый проезд 7 м</span>
+        <span><i style="background:#cfccc4;border:1px solid var(--muted)"></i>бетон по всей территории</span><span><i class="ln" style="border-top-style:solid;width:14px"></i>разметка проезда</span><span><i style="background:#8e979f"></i>сушка песка</span><span><i style="background:#e4e6e8;border:1px solid var(--muted);border-radius:50%"></i>силосы</span>
         <span><i class="ln"></i>маршрут фуры</span>
         <span><i style="background:#f2c230"></i>ворота 4 × 5 м</span>
       </div>
@@ -314,9 +325,59 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
 
   <div id="road" class="roadbox">
     <p class="eyebrow" style="margin-top:44px">Лист 2а · Подъезд и доставка</p>
-    <h2>Как металл доедет и встанет на место</h2>
+    <h2>Въезд, бетон и потоки по территории</h2>
     <ol class="route" id="routeList"></ol>
   </div>
+</div></section>
+
+<!-- 2b. EQUIPMENT -->
+<section id="equip" class="gut"><div class="wrap">
+  <p class="eyebrow">Лист 2б · Оборудование</p>
+  <h2>Что стоит в цехе и рядом</h2>
+  <p class="lead">Две линии сухих смесей по КП MAB (Денизли) из проекта EasyMix стоят вдоль длинных стен: серая — у восточной, к воротам и проезду, белая — у западной. По центру остаётся проход 3,6 м для погрузчика, над всем ходит мостовой кран. Силосы обеих линий — на улице у северного торца. Сушка песка — снаружи с западной стороны.</p>
+  <div class="eqgrid">
+    <div class="box"><h3>Серая линия · 15–20 т/ч</h3><p class="note" style="margin:0 0 8px">у восточной стены, ряд А · 320 000 $</p>
+      <table class="eqt"><tbody>
+        <tr><td class="n">1.1</td><td>Силосы 4 × 30 т</td><td>Ø 2,5 м, h ≈ 10 м, фильтр JetPlus</td></tr>
+        <tr><td class="n">1.2</td><td>Шнеки от силосов × 4</td><td>Ø300, 11 кВт, 6,5–7 м</td></tr>
+        <tr><td class="n">1.3</td><td>Весовой бункер 5 т</td><td>3 тензодатчика, 8 входов</td></tr>
+        <tr><td class="n">1.4</td><td>Приёмный бункер</td><td>1,25 м³, загрузка погрузчиком</td></tr>
+        <tr><td class="n">1.5</td><td>Шнек в смеситель</td><td>Ø300, 11 кВт, 208 об/мин</td></tr>
+        <tr><td class="n">1.6</td><td>Смеситель 4 т</td><td>45 кВт, на площадке 3,3 м</td></tr>
+        <tr><td class="n">1.7</td><td>Буфер 6 т</td><td>под площадкой, шнек 3 кВт</td></tr>
+        <tr><td class="n">1.8</td><td>Шнек в фасовку</td><td>Ø300, 11 кВт</td></tr>
+        <tr><td class="n">1.9</td><td>Роторная фасовка</td><td>6 клапанов, мешок 0–50 кг</td></tr>
+        <tr><td class="n">1.10</td><td>Лента 3 м</td><td>1,1 кВт</td></tr>
+        <tr><td class="n">1.11</td><td>Пылеуловитель Jet Pulse</td><td>7,5 кВт</td></tr>
+        <tr><td class="n">2</td><td>Паллетайзер + стрейч</td><td>паллета ≤ 5 мин</td></tr>
+      </tbody></table></div>
+    <div class="box"><h3>Белая линия · 8–10 т/ч</h3><p class="note" style="margin:0 0 8px">у западной стены, ряд Б · 145 600 $</p>
+      <table class="eqt"><tbody>
+        <tr><td class="n">Б1.1</td><td>Силосы 4 × 30 т</td><td>как у серой линии</td></tr>
+        <tr><td class="n">Б1.2</td><td>Шнеки от силосов × 4</td><td>Ø220, 7,5 кВт</td></tr>
+        <tr><td class="n">Б1.3</td><td>Весовой бункер 3 т</td><td>рабочий 2 т, 8 входов</td></tr>
+        <tr><td class="n">Б1.4</td><td>Приёмный бункер</td><td>1,25 м³ со шнеком</td></tr>
+        <tr><td class="n">Б1.5</td><td>Шнек в смеситель</td><td>подъём ≈ 5,9 м, ~58°</td></tr>
+        <tr><td class="n">Б1.6</td><td>Смеситель 2 т</td><td>30 кВт, площадка 4,2 м</td></tr>
+        <tr><td class="n">Б1.7</td><td>Две фасовки</td><td>под смесителем, бункеры по 3 т</td></tr>
+        <tr><td class="n">Б1.8</td><td>Лента 3 м</td><td>в зону ручной укладки</td></tr>
+        <tr><td class="n">—</td><td>Ручная укладка</td><td>2 человека, стрейч докупить</td></tr>
+        <tr><td class="n">*</td><td>Пылеуловитель</td><td>нет в КП, показан призраком</td></tr>
+      </tbody></table></div>
+    <div class="box"><h3>Сушка песка · 20 т/ч</h3><p class="note" style="margin:0 0 8px">снаружи, с западной стороны · оценка</p>
+      <table class="eqt"><tbody>
+        <tr><td class="n">П</td><td>Погрузчик 3 т</td><td>ковш, подаёт сырой песок</td></tr>
+        <tr><td class="n">D.1</td><td>Приёмный бункер 3 т</td><td>решётка, ленточный питатель</td></tr>
+        <tr><td class="n">D.2</td><td>Ленточный конвейер</td><td>≈ 15 м, подъём 2,6 м, кожух</td></tr>
+        <tr><td class="n">D.3</td><td>Сушильный барабан</td><td>10 × 1,4 м, 20 т/ч, бандажи и ролики, привод через венец</td></tr>
+        <tr><td class="n">D.4</td><td>Газовая горелка</td><td>≈ 1,2 МВт, газ ≈ 120 м³/ч при влажности 5–6 %</td></tr>
+        <tr><td class="n">D.5</td><td>Циклон</td><td>улавливает пыль из отходящих газов</td></tr>
+        <tr><td class="n">D.6</td><td>Дымосос и труба</td><td>труба 13 м</td></tr>
+        <tr><td class="n">D.7</td><td>Элеватор сухого песка</td><td>≈ 15 м, в силос песка белой линии</td></tr>
+      </tbody></table>
+      <p class="note">Циклон, дымосос и элеватор вы не перечисляли, но без них сушка не работает: горячие газы надо очистить, а сухой песок поднять в силос.</p></div>
+  </div>
+  <div class="status" style="margin-top:20px"><b>Электрика.</b> <span>Две линии ≈ 280 кВт, сушка ≈ 50 кВт, кран, котельная и свет — всего около 370 кВт установленной мощности и 260 кВт в работе. Заявленных 300 кВА уже не хватает: нужен трансформатор 400 кВА, а с запасом — 630 кВА.</span></div>
 </div></section>
 
 <!-- 3. SCOPE -->
@@ -338,7 +399,7 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
   </table></div>
   <div class="totals">
     <div><div class="v" id="tFrame">—</div><div class="k">каркас с доставкой</div></div>
-    <div><div class="v" id="tRest">—</div><div class="k">обшивка, фундамент, проезд, котельная, КТП и выбранное</div></div>
+    <div><div class="v" id="tRest">—</div><div class="k">обшивка, фундамент, бетон, КПП, котельная, КТП, оборудование</div></div>
     <div class="grand"><div class="v" id="tAll">—</div><div class="k">итого по выбранным позициям</div></div>
   </div>
   <p class="note">Цены ноября 2026 г. по рынку Астаны, без НДС, точность ±15–20 %. <span id="heatNote"></span> Трансформаторов на 300 кВА в типовом ряду нет (250 и 400 кВА), в смете — 400 кВА с запасом под кран, сварку и котельную.</p>
@@ -430,7 +491,34 @@ const M={
   brick:new THREE.MeshStandardMaterial({color:0x8a8f93,roughness:.6,metalness:.4}),
   exist:new THREE.MeshStandardMaterial({color:0xcdc7ba,roughness:.85}),
   road:new THREE.MeshStandardMaterial({color:0x8d8a83,roughness:1}),
+  conc2:new THREE.MeshStandardMaterial({color:0xb3afa6,roughness:.9}),
+  paint:new THREE.MeshStandardMaterial({color:0xf2c230,roughness:.6}),
+  fence:new THREE.MeshStandardMaterial({color:0x6f777e,roughness:.6,metalness:.4,transparent:true,opacity:.38,side:THREE.DoubleSide,depthWrite:false}),
+  post:new THREE.MeshStandardMaterial({color:0x4a5056,roughness:.6,metalness:.4}),
+  gate:new THREE.MeshStandardMaterial({color:0x9aa4ad,roughness:.5,metalness:.4}),
+  barrier:new THREE.MeshStandardMaterial({color:0xc8243a,roughness:.5}),
+  kpp:new THREE.MeshStandardMaterial({color:0xeef0f1,roughness:.6}),
+  eqv:new THREE.MeshStandardMaterial({color:0xe4e6e8,roughness:.45,metalness:.35}),
+  eqf:new THREE.MeshStandardMaterial({color:0x383e42,roughness:.55,metalness:.35}),
+  guard:new THREE.MeshStandardMaterial({color:0xf4a900,roughness:.5}),
+  deck:new THREE.MeshStandardMaterial({color:0x6b7177,roughness:.7,metalness:.4}),
+  motor:new THREE.MeshStandardMaterial({color:0x3a6ea5,roughness:.5,metalness:.3}),
+  drum:new THREE.MeshStandardMaterial({color:0x8e979f,roughness:.4,metalness:.6}),
+  gear:new THREE.MeshStandardMaterial({color:0x22272b,roughness:.5,metalness:.5}),
+  burner:new THREE.MeshStandardMaterial({color:0xc8243a,roughness:.45,metalness:.3}),
+  gasP:new THREE.MeshStandardMaterial({color:0xf2c230,roughness:.5}),
+  flame:new THREE.MeshStandardMaterial({color:0xff8a1f,emissive:0xff6a00,emissiveIntensity:1.6,transparent:true,opacity:.75,side:THREE.DoubleSide,depthWrite:false}),
+  cover:new THREE.MeshStandardMaterial({color:0xc4c9cd,roughness:.4,metalness:.5,transparent:true,opacity:.55,side:THREE.DoubleSide}),
+  bag:new THREE.MeshStandardMaterial({color:0xdacdb0,roughness:.9}),
+  pallet:new THREE.MeshStandardMaterial({color:0x9b7b54,roughness:.9}),
+  vest:new THREE.MeshStandardMaterial({color:0xf4a900,roughness:.7}),
+  skin:new THREE.MeshStandardMaterial({color:0xd9b08c,roughness:.8}),
+  ghost:new THREE.MeshStandardMaterial({color:0x9aa4ad,transparent:true,opacity:.22,depthWrite:false}),
 };
+{const cv=document.createElement('canvas');cv.width=cv.height=256;const g=cv.getContext('2d');g.fillStyle='#cfccc4';g.fillRect(0,0,256,256);
+  for(let q=0;q<1400;q++){g.fillStyle=`rgba(${120+Math.random()*60|0},${118+Math.random()*60|0},${110+Math.random()*60|0},.18)`;g.fillRect(Math.random()*256,Math.random()*256,2,2);}
+  g.strokeStyle='#9d998f';g.lineWidth=3;g.strokeRect(0,0,256,256);
+  const t=new THREE.CanvasTexture(cv);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1/6,1/6);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;M.conc=new THREE.MeshStandardMaterial({map:t,roughness:.92});}
 {const t=new THREE.TextureLoader().load(document.querySelector('#siteSvg image').getAttribute('href'));t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;M.site=new THREE.MeshStandardMaterial({map:t,roughness:1});}
 const lineMat=new THREE.LineBasicMaterial({color:0x1b1b19,transparent:true,opacity:.32});
 const dimMat=new THREE.LineBasicMaterial({color:0x1b1b19});
@@ -475,6 +563,7 @@ function tube(layer,a,b,r,mat,edges=true){
   if(edges)addEdges(m,40);layers[layer].add(m);return len;
 }
 function box(layer,w,h,d,pos,mat,edges=true){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.copy(pos);m.castShadow=m.receiveShadow=true;if(edges)addEdges(m);(layer.isObject3D?layer:layers[layer]).add(m);return m;}
+function tagN(n,name,pos,layer){const el=document.createElement('div');el.className='lbl nm';el.innerHTML=`<b>${n}</b><span>${name}</span>`;const o=new CSS2DObject(el);o.position.copy(pos);layers[layer].add(o);return o;}
 function label(text,cls,pos,layer='dims'){const el=document.createElement('div');el.className='lbl '+cls;el.textContent=text;const o=new CSS2DObject(el);o.position.copy(pos);layers[layer].add(o);return o;}
 function dimLine(a,b,off,text){
   const pts=[a,b].map(p=>p.clone().add(off));
@@ -488,7 +577,7 @@ const fmt=m=>Math.round(m*1000).toLocaleString('ru-RU').replace(/ /g,' ');
 function build(){
   if(root){scene.remove(root);root.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.element)o.element.remove();});}
   root=new THREE.Group();scene.add(root);spec={};
-  layers={};for(const k of['found','frame','purlin','girt','brace','crane','wall','roof','util','site','dims','base']){layers[k]=new THREE.Group();root.add(layers[k]);}
+  layers={};for(const k of['found','frame','purlin','girt','brace','crane','wall','roof','util','site','equip','dryer','dims','base']){layers[k]=new THREE.Group();root.add(layers[k]);}
   const num=id=>parseFloat($(id).value);
   const S=Math.min(36,Math.max(9,num('pS')||21)),L=Math.min(200,Math.max(12,num('pL')||80));
   let nb=Math.max(2,Math.round(L/(num('pB')||5)));const B=L/nb;
@@ -614,8 +703,8 @@ function build(){
   for(const dx of[-.8,.8])box('util',.04,1.8,1.1,V(17+dx,1.2,-10.5+1.21),M.galv,false);
   const sign=new THREE.Mesh(new THREE.PlaneGeometry(.35,.35),M.yellow);sign.position.set(17,2,-10.5+1.22);layers.util.add(sign);
   for(const x of[24,40])tube('util',V(x,0,-14),V(x,10,-14),.14,new THREE.MeshStandardMaterial({color:0x8a857c,roughness:.9}));
-  label('Котельная на угле, 300 кВт','tag',V(5,5,bz),'util');
-  label('КТП 10/0,4 кВ · 400 кВА','tag',V(17,4.2,-10.5),'util');
+  tagN('О','котельная на угле 300 кВт',V(5,5,bz),'util');
+  tagN('Э','КТП 10/0,4 кВ · 400 кВА',V(17,4.2,-10.5),'util');
 
   // территория базы: спутниковый снимок, существующие постройки, новый проезд
   if(!pose)pose=defaultPose(L);
@@ -625,11 +714,163 @@ function build(){
     const pl=new THREE.Mesh(new THREE.PlaneGeometry(W,Hh),M.site);pl.rotation.x=-Math.PI/2;pl.position.set(W/2,-0.012,Hh/2);pl.receiveShadow=true;ig.add(pl);
     ig.position.set(-pose.x/PXM,0,-pose.y/PXM);sg.rotation.y=pose.a*Math.PI/180;sg.position.set(L/2,0,S/2);
   }
-  box('site',L+6,.05,7,V(L/2-3,.025,-4.5),M.road,false);
-  const RT=pxTo3(ROAD_T[0],ROAD_T[1],L,S),a0=V(-4,0,-4.5),rdx=RT.x-a0.x,rdz=RT.z-a0.z,rlen=Math.hypot(rdx,rdz);
-  const rc=box('site',rlen+3.5,.05,7,V((a0.x+RT.x)/2,.024,(a0.z+RT.z)/2),M.road,false);rc.rotation.y=-Math.atan2(rdz,rdx);
-  const roadA=(L+6)*7+(rlen+3.5)*7;
-  label('новый проезд 7 м','dim',V(L*.62,.4,-4.5),'site');
+  // ---------- территория: бетон, разметка, ограждение, КПП ----------
+  const C3=PLOT.map(([X,Y])=>pxTo3(X,Y,L,S));
+  {const sh=new THREE.Shape(C3.map(p=>new THREE.Vector2(p.x,-p.z)));
+   const m=new THREE.Mesh(new THREE.ShapeGeometry(sh),M.conc);m.rotation.x=-Math.PI/2;m.position.y=.015;m.receiveShadow=true;layers.site.add(m);}
+  for(const z of[-1.2,-7.8])for(let x=-6;x<L;x+=3)box('site',1.8,.012,.14,V(x+.9,.03,z),M.paint,false);
+  const E3=pxTo3(ROAD_E[0],ROAD_E[1],L,S),cen={x:C3.reduce((a,p)=>a+p.x,0)/4,z:C3.reduce((a,p)=>a+p.z,0)/4};
+  let gateInfo=null;
+  for(let k=0;k<4;k++){const A=C3[k],Bp=C3[(k+1)%4],dx=Bp.x-A.x,dz=Bp.z-A.z,len=Math.hypot(dx,dz),ux=dx/len,uz=dz/len;
+    const t=(E3.x-A.x)*ux+(E3.z-A.z)*uz,dist=Math.abs((E3.x-A.x)*uz-(E3.z-A.z)*ux);
+    let spans=[[0,len]];
+    if(!gateInfo&&dist<6&&t>5&&t<len-5){spans=[[0,t-3.2],[t+3.2,len]];gateInfo={x:A.x+ux*t,z:A.z+uz*t,ux,uz};}
+    for(const [t0,t1] of spans){const l=t1-t0,mx=A.x+ux*(t0+t1)/2,mz=A.z+uz*(t0+t1)/2;
+      const pn=box('site',l,1.8,.04,V(mx,1.1,mz),M.fence,false);pn.rotation.y=-Math.atan2(uz,ux);
+      for(let q=t0;q<=t1+.01;q+=3)tube('site',V(A.x+ux*q,0,A.z+uz*q),V(A.x+ux*q,2.1,A.z+uz*q),.04,M.post,false);}
+  }
+  if(gateInfo){const {x,z,ux,uz}=gateInfo;let nx=-uz,nz=ux;if((cen.x-x)*nx+(cen.z-z)*nz<0){nx=-nx;nz=-nz;}
+    const rot=-Math.atan2(uz,ux);
+    const lf=box('site',6.2,1.9,.06,V(x+ux*4.2+nx*.25,1.15,z+uz*4.2+nz*.25),M.gate);lf.rotation.y=rot;
+    for(const s of[-1,1])tube('site',V(x+ux*3.2*s,0,z+uz*3.2*s),V(x+ux*3.2*s,2.4,z+uz*3.2*s),.09,M.eqf);
+    const bar=box('site',5,.1,.1,V(x+nx*4,1.05,z+nz*4),M.barrier,false);bar.rotation.y=rot;
+    box('site',.35,1,.35,V(x-ux*2.7+nx*4,.5,z-uz*2.7+nz*4),M.eqf);
+    const kx=x-ux*6.4+nx*3.4,kz=z-uz*6.4+nz*3.4;
+    const kb=box('site',3,2.6,2.5,V(kx,1.3,kz),M.kpp);kb.rotation.y=rot;
+    const kr=box('site',3.4,.14,2.9,V(kx,2.67,kz),M.galv,false);kr.rotation.y=rot;
+    const kw=box('site',2.2,.9,.04,V(kx+nx*1.27,1.7,kz+nz*1.27),M.glass,false);kw.rotation.y=rot;
+    tagN('К','КПП и въезд',V(kx,3.7,kz),'site');
+  }
+
+  // ---------- линии сухих смесей EasyMix (MAB) внутри цеха ----------
+  const cylAB=(layer,a,b,r,mat,seg=28,edges=true)=>{const d=b.clone().sub(a),len=d.length();const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,len,seg),mat);
+    m.position.copy(a).add(b).multiplyScalar(.5);m.quaternion.setFromUnitVectors(Y,d.normalize());m.castShadow=m.receiveShadow=true;if(edges)addEdges(m,30);layers[layer].add(m);return m;};
+  const vcyl=(layer,x,z,y0,y1,rt,rb,mat,seg=28,rotY=0)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,y1-y0,seg),mat);m.position.set(x,(y0+y1)/2,z);m.rotation.y=rotY;m.castShadow=m.receiveShadow=true;addEdges(m,30);layers[layer].add(m);return m;};
+  const legs=(layer,x,z,y,hw,hd,r=.06)=>{for(const dx of[-hw,hw])for(const dz of[-hd,hd])tube(layer,V(x+dx,0,z+dz),V(x+dx,y,z+dz),r,M.eqf,false);};
+  const screwC=(layer,a,b,r=.15)=>{cylAB(layer,a,b,r,M.eqv,14);const m=box(layer,.42,.42,.55,b.clone().add(V(0,.32,0)),M.motor);return m;};
+  const rail=(layer,x0,x1,z0,z1,y)=>{const pts=[[x0,z0],[x1,z0],[x1,z1],[x0,z1],[x0,z0]];
+    for(let k=0;k<4;k++){const [ax,az]=pts[k],[bx,bz]=pts[k+1];tube(layer,V(ax,y+1.05,az),V(bx,y+1.05,bz),.03,M.guard,false);tube(layer,V(ax,y+.55,az),V(bx,y+.55,bz),.022,M.guard,false);
+      const n=Math.max(1,Math.round(Math.hypot(bx-ax,bz-az)/1.4));for(let q=0;q<n;q++){const t=q/n;tube(layer,V(ax+(bx-ax)*t,y,az+(bz-az)*t),V(ax+(bx-ax)*t,y+1.05,az+(bz-az)*t),.025,M.guard,false);}}};
+  const platform=(layer,x0,x1,z0,z1,y)=>{box(layer,x1-x0,.1,z1-z0,V((x0+x1)/2,y-.05,(z0+z1)/2),M.deck);
+    for(const x of[x0+.12,x1-.12])for(const z of[z0+.12,z1-.12])tube(layer,V(x,0,z),V(x,y-.1,z),.08,M.eqf,false);
+    rail(layer,x0,x1,z0,z1,y);
+    const zs=z0+.55,st=V(x1+y*.75,0,zs),en=V(x1,y,zs);
+    for(const dz of[-.45,.45])tube(layer,st.clone().add(V(0,0,dz)),en.clone().add(V(0,0,dz)),.04,M.guard,false);
+    for(let q=1;q<y/.25;q++){const t=q*.25/y;box(layer,.26,.03,.9,V(st.x+(en.x-st.x)*t,y*t,zs),M.eqf,false);}};
+  const belt=(layer,x0,x1,z,y,w=.7)=>{box(layer,x1-x0,.14,w+.1,V((x0+x1)/2,y-.08,z),M.eqf);box(layer,x1-x0,.03,w,V((x0+x1)/2,y+.015,z),M.black,false);
+    for(let x=x0+.3;x<x1;x+=1.2)for(const dz of[-w/2,w/2])tube(layer,V(x,0,z+dz),V(x,y-.15,z+dz),.03,M.eqf,false);};
+  const pallets=(layer,x0,x1,z0,z1,h=1.35)=>{for(let x=x0;x+1.2<=x1;x+=1.5)for(let z=z0;z+1.2<=z1;z+=1.5){box(layer,1.2,.14,1.2,V(x+.6,.07,z+.6),M.pallet,false);box(layer,1.12,h,1.12,V(x+.6,.14+h/2,z+.6),M.bag);}};
+  const worker=(layer,x,z)=>{const b=new THREE.Mesh(new THREE.CapsuleGeometry(.22,.9,4,10),M.vest);b.position.set(x,.75+.2,z);b.castShadow=true;layers[layer].add(b);const h=new THREE.Mesh(new THREE.SphereGeometry(.16,12,10),M.skin);h.position.set(x,1.72,z);layers[layer].add(h);};
+
+  const SILO_X=-3.4,siloZ=[1.4,4.0,6.6,9.2,11.8,14.4,17.0,19.6];
+  box('equip',3.6,.4,S+1,V(SILO_X,.2,S/2),M.conc2);
+  siloZ.forEach(z=>{vcyl('equip',SILO_X,z,3.4,9.6,1.25,1.25,M.eqv,32);vcyl('equip',SILO_X,z,1.9,3.4,1.25,.17,M.eqv,32);
+    vcyl('equip',SILO_X,z,9.6,10.05,.36,.36,M.eqf,14);legs('equip',SILO_X,z,3.6,.92,.92,.07);
+    tube('equip',V(SILO_X-1.25,10.1,z-1),V(SILO_X-1.25,10.1,z+1),.025,M.guard,false);});
+  for(const z of[siloZ[0],siloZ[4]])for(let y=.4;y<9.6;y+=.35)box('equip',.04,.04,.45,V(SILO_X-1.34,y,z+.8),M.guard,false);
+  tagN('1.1','силосы 4 × 30 т, серая',V(SILO_X,11,5.3),'equip');tagN('Б1.1','силосы 4 × 30 т, белая',V(SILO_X,11,15.7),'equip');
+
+  // серая линия — вдоль восточной стены (ряд А)
+  const gz=5;
+  siloZ.slice(0,4).forEach(z=>cylAB('equip',V(SILO_X,1.95,z),V(2.1,4.5,gz+(z-gz)*.28),.15,M.eqv,14));
+  tagN('1.2','шнеки Ø300',V(-.6,4.2,1.2),'equip');
+  vcyl('equip',2.6,gz,3.0,4.6,1.05,1.05,M.eqv);vcyl('equip',2.6,gz,1.9,3.0,.2,1.05,M.eqv);legs('equip',2.6,gz,3.0,.86,.86);
+  tagN('1.3','весовой бункер 5 т',V(2.6,5.4,gz),'equip');
+  vcyl('equip',4.4,8.3,.9,2.0,1.0,.28,M.eqv,4,Math.PI/4);legs('equip',4.4,8.3,.9,.4,.4);cylAB('equip',V(4.4,1.0,8.3),V(3.1,4.5,gz+.7),.13,M.eqv,14);
+  tagN('1.4','приёмный бункер',V(4.4,2.7,8.6),'equip');
+  screwC('equip',V(2.6,1.9,gz),V(6.9,4.9,gz),.17);tagN('1.5','шнек в смеситель',V(4.6,4.3,gz-1.2),'equip');
+  platform('equip',6,11.6,1.2,8.8,3.3);
+  cylAB('equip',V(6.8,4.35,gz),V(10.4,4.35,gz),.95,M.eqv,32);box('equip',1.2,.8,.8,V(11.0,4.0,gz),M.motor);
+  for(const x of[7.1,10.1])box('equip',.2,.5,1.9,V(x,3.5,gz),M.eqf);
+  tagN('1.6','смеситель 4 т · 45 кВт',V(8.6,5.9,gz),'equip');
+  box('equip',2.8,2.0,2.2,V(8.6,2.0,gz),M.eqv);vcyl('equip',8.6,gz,.55,1.0,1.35,.3,M.eqv,4,Math.PI/4);
+  tagN('1.7','буфер 6 т',V(8.6,1.4,gz-1.6),'equip');
+  box('equip',1.3,3.2,1.3,V(12.8,2.8,1.7),M.eqv);vcyl('equip',12.8,1.7,.45,1.2,.15,.92,M.eqv,4,Math.PI/4);legs('equip',12.8,1.7,1.2,.55,.55);
+  box('equip',.9,.6,.9,V(12.8,4.7,1.7),M.motor);cylAB('equip',V(12.6,4.4,2.2),V(10.2,5.2,gz-.6),.13,M.galv,12);
+  tagN('1.11','пылеуловитель',V(12.8,5.6,1.7),'equip');
+  screwC('equip',V(9.4,.7,gz),V(15.3,4.5,gz));tagN('1.8','шнек в фасовку',V(12.4,3.6,gz+1),'equip');
+  vcyl('equip',16.5,gz,2.9,4.3,1.0,1.0,M.eqv);vcyl('equip',16.5,gz,2.2,2.9,.25,1.0,M.eqv);
+  vcyl('equip',16.5,gz,.6,2.0,1.35,1.35,M.eqf,6);legs('equip',16.5,gz,.6,1.0,1.0);
+  for(let k=0;k<6;k++){const a=k*Math.PI/3;cylAB('equip',V(16.5+Math.cos(a)*1.3,1.5,gz+Math.sin(a)*1.3),V(16.5+Math.cos(a)*1.75,1.3,gz+Math.sin(a)*1.75),.08,M.guard,8,false);}
+  tagN('1.9','роторная фасовка, 6 клапанов',V(16.5,5.1,gz),'equip');
+  belt('equip',17.9,21,gz,.85);tagN('1.10','лента 3 м',V(19.4,1.6,gz+.9),'equip');
+  for(const x of[21.6,28.4])for(const z of[1.6,8.4])tube('equip',V(x,0,z),V(x,3.6,z),.1,M.eqf,false);
+  for(const z of[1.6,8.4])tube('equip',V(21.6,3.6,z),V(28.4,3.6,z),.08,M.eqf,false);for(const x of[21.6,28.4])tube('equip',V(x,3.6,1.6),V(x,3.6,8.4),.08,M.eqf,false);
+  box('equip',1.6,.4,1.4,V(23.2,2.6,gz),M.guard);belt('equip',21.6,26.4,gz,.7,1.2);box('equip',1.2,.14,1.2,V(24.6,.84,gz),M.pallet,false);box('equip',1.12,1.0,1.12,V(24.6,1.41,gz),M.bag);
+  const wrap=new THREE.Mesh(new THREE.TorusGeometry(1.15,.06,8,40),M.guard);wrap.rotation.x=Math.PI/2;wrap.position.set(27.2,1.4,gz);layers.equip.add(wrap);tube('equip',V(27.2,0,gz-1.5),V(27.2,3,gz-1.5),.1,M.eqf);
+  tagN('2','паллетайзер + стрейч',V(25,4.4,gz),'equip');
+  pallets('equip',31,48.5,1,8.6);tagN('ГП','склад готовой продукции',V(40,2.4,gz),'equip');
+
+  // белая линия — вдоль западной стены (ряд Б)
+  const wz=16.4;
+  siloZ.slice(4).forEach(z=>cylAB('equip',V(SILO_X,1.95,z),V(2.1,4.2,wz+(z-wz)*.28),.12,M.eqv,14));
+  vcyl('equip',2.6,wz,2.9,4.2,.85,.85,M.eqv);vcyl('equip',2.6,wz,1.9,2.9,.18,.85,M.eqv);legs('equip',2.6,wz,2.9,.7,.7);
+  tagN('Б1.3','весовой бункер 3 т',V(2.6,5,wz),'equip');
+  vcyl('equip',4.4,13.1,.9,2.0,1.0,.28,M.eqv,4,Math.PI/4);legs('equip',4.4,13.1,.9,.4,.4);cylAB('equip',V(4.4,1.0,13.1),V(3.0,4.2,wz-.6),.12,M.eqv,14);
+  screwC('equip',V(2.6,1.9,wz),V(6.9,5.6,wz),.17);
+  platform('equip',6,11.2,13,20,4.2);
+  cylAB('equip',V(6.9,5.05,wz),V(9.7,5.05,wz),.75,M.eqv,32);box('equip',1,.7,.7,V(10.3,4.8,wz),M.motor);
+  tagN('Б1.6','смеситель 2 т · 30 кВт',V(8.3,6.4,wz),'equip');
+  for(const z of[14.6,18.2]){vcyl('equip',8.4,z,2.4,3.5,.7,.7,M.eqv);vcyl('equip',8.4,z,1.9,2.4,.18,.7,M.eqv);box('equip',1.2,1.4,1.2,V(8.4,1.1,z),M.eqf);
+    cylAB('equip',V(8.3,4.1,wz),V(8.4,3.5,z),.1,M.eqv,10);}
+  tagN('Б1.7','две фасовки',V(8.4,1.2,12.5),'equip');
+  belt('equip',11.6,14.6,wz,.85);tagN('Б1.8','лента 3 м',V(13.1,1.6,wz-.9),'equip');
+  pallets('equip',15.5,19,14.4,19.6,1.1);worker('equip',15,15.4);worker('equip',15,17.8);
+  tagN('—','ручная укладка, 2 чел.',V(16.8,2.6,wz),'equip');
+  {const g=box('equip',1.3,3.2,1.3,V(12.6,2.8,19.4),M.ghost,false);}
+  pallets('equip',24,48.5,12.8,20.3);tagN('ГП','буфер готовой продукции',V(36,2.4,wz),'equip');
+
+  // ---------- сушка песка снаружи, с западной стороны ----------
+  const DZ=S+8,dIn=V(22.6,2.4,DZ),dOut=V(12.6,1.9,DZ);
+  cylAB('dryer',dOut,dIn,.7,M.drum,40);
+  const lerp=(t)=>dOut.clone().lerp(dIn,t);
+  for(const t of[.18,.82]){const p=lerp(t),ax=dIn.clone().sub(dOut).normalize();
+    cylAB('dryer',p.clone().addScaledVector(ax,-.14),p.clone().addScaledVector(ax,.14),.84,M.eqf,40);
+    for(const s of[-1,1]){const rp=p.clone().add(V(0,-.9,.55*s));cylAB('dryer',rp.clone().addScaledVector(ax,-.18),rp.clone().addScaledVector(ax,.18),.22,M.eqf,16);
+      box('dryer',.5,rp.y-.2,.4,V(rp.x,(rp.y-.2)/2,rp.z),M.eqf);}}
+  {const p=lerp(.5),ax=dIn.clone().sub(dOut).normalize();cylAB('dryer',p.clone().addScaledVector(ax,-.1),p.clone().addScaledVector(ax,.1),.9,M.gear,40);
+   box('dryer',1.2,.7,.8,V(p.x,.45,DZ-1.5),M.motor);box('dryer',.8,.6,.8,V(p.x,.45,DZ-.8),M.eqf);}
+  box('dryer',11.4,.25,2.6,V(17.6,.12,DZ),M.eqf);
+  box('dryer',1.1,2.2,1.9,V(23.4,2.4,DZ),M.eqf);tagN('D.3','сушильный барабан 10 × 1,4 м · 20 т/ч',V(17.6,4.0,DZ),'dryer');
+  cylAB('dryer',V(24,2.4,DZ),V(25.5,2.4,DZ),.42,M.burner,28);cylAB('dryer',V(25.5,2.4,DZ),V(25.9,2.4,DZ),.3,M.eqf,20);
+  vcyl('dryer',25.1,DZ+1.1,.3,1.3,.5,.5,M.burner,24);box('dryer',.5,.5,.6,V(25.1,1.55,DZ+1.1),M.motor);cylAB('dryer',V(25.1,1.3,DZ+.7),V(25.1,2.1,DZ+.2),.16,M.burner,12,false);
+  const flame=new THREE.Mesh(new THREE.ConeGeometry(.45,1.6,20,1,true),M.flame);flame.rotation.z=Math.PI/2;flame.position.set(22.3,2.38,DZ);layers.dryer.add(flame);
+  for(const [a,b] of[[V(25.9,2.4,DZ),V(26.6,2.4,DZ)],[V(26.6,2.4,DZ),V(26.6,.35,DZ)],[V(26.6,.35,DZ),V(26.6,.35,DZ+6)]])cylAB('dryer',a,b,.06,M.gasP,10,false);
+  box('dryer',.3,.3,.3,V(26.6,1.6,DZ),M.burner);
+  tagN('D.4','газовая горелка ≈ 1,2 МВт',V(25.2,3.6,DZ),'dryer');
+  box('dryer',1.4,2.8,1.9,V(11.8,1.7,DZ),M.eqf);
+  cylAB('dryer',V(11.8,3.1,DZ+.3),V(9.4,5.6,DZ+2.6),.3,M.galv,16);
+  vcyl('dryer',9,DZ+3.2,4.2,6.2,.8,.8,M.eqv);vcyl('dryer',9,DZ+3.2,2.2,4.2,.8,.16,M.eqv);legs('dryer',9,DZ+3.2,4.2,.7,.7);box('dryer',.4,.4,.4,V(9,2,DZ+3.2),M.motor);
+  tagN('D.5','циклон',V(9,7,DZ+3.2),'dryer');
+  cylAB('dryer',V(9,6.2,DZ+3.2),V(9,6.8,DZ+3.2),.25,M.galv,14,false);cylAB('dryer',V(9,6.8,DZ+3.2),V(7.2,6.8,DZ+3.2),.25,M.galv,14,false);cylAB('dryer',V(7.2,6.8,DZ+3.2),V(7.2,1.6,DZ+3.2),.25,M.galv,14,false);
+  vcyl('dryer',6.6,DZ+3.2,.3,1.6,.6,.6,M.eqf,24);box('dryer',.6,.6,.6,V(6.0,.6,DZ+3.2),M.motor);
+  vcyl('dryer',5.4,DZ+3.2,0,13,.32,.38,M.galv,18);cylAB('dryer',V(6.6,1.0,DZ+3.2),V(5.4,1.0,DZ+3.2),.22,M.galv,12,false);
+  tagN('D.6','дымосос и труба 13 м',V(5.4,14,DZ+3.2),'dryer');
+  const HX=38;
+  vcyl('dryer',HX,DZ,1.6,3.1,1.75,.45,M.eqv,4,Math.PI/4);legs('dryer',HX,DZ,1.6,1.1,1.1,.09);
+  for(let q=-1.1;q<=1.1;q+=.37)box('dryer',.05,.06,2.4,V(HX+q,3.12,DZ),M.eqf,false);
+  box('dryer',2.2,.35,.9,V(HX,1.05,DZ),M.eqf);box('dryer',.5,.4,.4,V(HX+1.3,1.05,DZ-.6),M.motor);
+  tagN('D.1','приёмный бункер 3 т',V(HX,4.2,DZ),'dryer');
+  {const a=V(23.9,3.7,DZ),b=V(HX-.9,1.15,DZ),d=b.clone().sub(a),len=d.length(),ang=Math.atan2(d.y,d.x),mid=a.clone().add(b).multiplyScalar(.5);
+   const fr=box('dryer',len,.22,.95,mid,M.eqf);fr.rotation.z=ang;const bt=box('dryer',len,.04,.8,mid.clone().add(V(0,.13,0)),M.black,false);bt.rotation.z=ang;
+   const cover=box('dryer',len,.05,1.0,mid.clone().add(V(0,.55,0)),M.cover,false);cover.rotation.z=ang;
+   for(let t=.06;t<1;t+=.16){const p=a.clone().lerp(b,t);for(const s of[-.42,.42])tube('dryer',V(p.x,0,DZ+s),V(p.x,p.y-.12,DZ+s),.04,M.eqf,false);}
+   box('dryer',.6,.6,.6,V(a.x-.2,a.y+.3,DZ-.75),M.motor);cylAB('dryer',V(23.6,3.6,DZ),V(23.4,3.0,DZ),.22,M.eqf,12,false);
+   tagN('D.2','ленточный конвейер 15 м',mid.clone().add(V(0,1.3,0)),'dryer');}
+  {const a=V(11.8,.35,DZ),b=V(-1.2,.35,S+2.2),d=b.clone().sub(a),len=Math.hypot(d.x,d.z),mid=a.clone().add(b).multiplyScalar(.5);
+   const fr=box('dryer',len,.35,.7,mid,M.eqf);fr.rotation.y=-Math.atan2(d.z,d.x);
+   box('dryer',.75,15,.55,V(-1.2,7.5,S+2.2),M.eqf);box('dryer',1.0,.8,.8,V(-1.2,15.2,S+2.2),M.motor);
+   cylAB('dryer',V(-1.4,14.8,S+2.0),V(SILO_X+.2,10.2,siloZ[7]+.3),.14,M.galv,12);
+   tagN('D.7','элеватор сухого песка → силос',V(-1.2,16.4,S+2.2),'dryer');}
+  {const lg=new THREE.Group();lg.position.set(HX+6,0,DZ+.4);layers.dryer.add(lg);
+   const add=(geo,mat,x,y,z,rz=0,rx=0)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.rotation.z=rz;m.rotation.x=rx;m.castShadow=true;addEdges(m,30);lg.add(m);return m;};
+   add(new THREE.BoxGeometry(3.2,1.1,1.9),M.yellow,.6,1.2,0);add(new THREE.BoxGeometry(1.0,1.2,1.9),M.yellow,2.4,1.4,0);
+   add(new THREE.BoxGeometry(1.3,1.5,1.5),M.glass,.6,2.5,0);add(new THREE.BoxGeometry(1.4,.12,1.6),M.yellow,.6,3.3,0);
+   for(const x of[-.6,1.9])for(const z of[-1,1])add(new THREE.CylinderGeometry(.68,.68,.55,20),M.black,x,.68,z,0,Math.PI/2);
+   for(const z of[-.6,.6])add(new THREE.BoxGeometry(2.6,.18,.18),M.yellow,-1.5,2.4,z,-.45);
+   add(new THREE.BoxGeometry(1.0,.9,2.5),M.eqf,-3.0,3.0,0);
+   tagN('П','погрузчик 3 т, ковш',V(HX+6.6,4.4,DZ+.4),'dryer');}
+  const roadA=Math.round(5157-S*L-3.6*(S+1));
 
   // axes and dims
   const AX=['А','Б','В','Г','Д'];
@@ -672,7 +913,7 @@ function build(){
   Object.assign(P,{aWall,aRoof,cv,dob,tot,nw,nCol:vol.n,gateBays,gw,gh2,roadA,i});
   $('hDim').textContent=`${nf0(S,S%1?1:0)} × ${nf0(L)} м`;$('navT').textContent=`Цех ${nf0(S,S%1?1:0)}×${nf0(L)} · Astana Baza`;
   sun.position.set(L/2-40,60,S/2-55);sun.target.position.set(L/2,0,S/2);
-  const sc=sun.shadow.camera,r=Math.max(L,S)*.8;sc.left=-r;sc.right=r;sc.top=r;sc.bottom=-r;sc.near=1;sc.far=250;sc.updateProjectionMatrix();
+  const sc=sun.shadow.camera,r=Math.max(L,S)*1.25;sc.left=-r;sc.right=r;sc.top=r;sc.bottom=-r;sc.near=1;sc.far=250;sc.updateProjectionMatrix();
   applyLayers();
   $('fArea').innerHTML=nf0(S*L)+' <small>м²</small>';
   $('fSteel').innerHTML=nf0(tot,1)+' <small>т</small>';
@@ -683,18 +924,19 @@ function build(){
   renderSmeta();renderSite();
 }
 
-function applyLayers(){for(const c of document.querySelectorAll('[data-l]')){const g=layers[c.dataset.l];g.visible=c.checked;g.traverse(o=>{if(o.isCSS2DObject)o.visible=c.checked;});}const f=layers.found.visible;for(const m of[M.ground,M.floor,M.site]){m.transparent=f;m.opacity=f?(m===M.site?.85:.5):1;m.depthWrite=!f;m.needsUpdate=true;}}
+function applyLayers(){for(const c of document.querySelectorAll('[data-l]')){const g=layers[c.dataset.l];g.visible=c.checked;g.traverse(o=>{if(o.isCSS2DObject)o.visible=c.checked;});}const f=layers.found.visible;for(const m of[M.ground,M.floor,M.site,M.conc]){m.transparent=f;m.opacity=f?(m===M.site?.85:m===M.conc?.7:.5):1;m.depthWrite=!f;m.needsUpdate=true;}}
 document.querySelectorAll('[data-l]').forEach(c=>c.addEventListener('change',()=>{applyLayers();syncStage();}));
 const STAGES={
   stFrame:['found','frame','purlin','girt','brace','crane','site','dims'],
   stClad:['found','frame','purlin','girt','brace','crane','wall','roof','site','dims'],
-  stFull:['found','frame','purlin','girt','brace','crane','wall','roof','util','site','dims'],
+  stFull:['found','frame','purlin','girt','brace','crane','wall','roof','util','site','equip','dryer','dims'],
+  stEquip:['frame','purlin','girt','brace','crane','util','site','equip','dryer'],
 };
 function setLayers(on){document.querySelectorAll('[data-l]').forEach(c=>{c.checked=on.includes(c.dataset.l);});applyLayers();syncStage();}
 function syncStage(){
   const on=[...document.querySelectorAll('[data-l]')].filter(c=>c.checked).map(c=>c.dataset.l).sort().join();
   let cur=null;for(const [id,l] of Object.entries(STAGES)){const m=[...l].sort().join()===on;$(id).setAttribute('aria-pressed',m);if(m)cur=id;}
-  $('stageLbl').textContent='стадия: '+({stFrame:'каркас с доставкой',stClad:'каркас + обшивка',stFull:'под ключ: + котельная и КТП'}[cur]||'свои слои');
+  $('stageLbl').textContent='стадия: '+({stFrame:'каркас с доставкой',stClad:'каркас + обшивка',stFull:'под ключ: + котельная и КТП',stEquip:'оборудование: линии ССС и сушка песка'}[cur]||'свои слои');
 }
 for(const id of Object.keys(STAGES))$(id).onclick=()=>setLayers(STAGES[id]);
 let timer;document.querySelectorAll('input[type=number][id^=p],select#pC').forEach(i=>i.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(()=>{syncLenSeg();build();view(curView,false);},350);}));
@@ -703,17 +945,17 @@ let timer;document.querySelectorAll('input[type=number][id^=p],select#pC').forEa
 let curView='iso';
 function view(v){
   curView=v;document.querySelectorAll('[data-v]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));
-  const {S,L,H}=P,c=V(L/2-4,H*.4,S/2-3);
+  const {S,L,H}=P,c=V(L/2-2,H*.35,S/2+4);
   if(v==='in'){cam=persp;ctl=ctlP;ctlO.enabled=false;ctlP.enabled=true;
     persp.position.set(L*.08,1.7,S*.3);ctlP.target.set(L*.6,H*.55,S*.55);ctlP.update();resize();return;}
   cam=ortho;ctl=ctlO;ctlP.enabled=false;ctlO.enabled=true;
-  const dirs={iso:(()=>{const a=THREE.MathUtils.degToRad(-50),e=THREE.MathUtils.degToRad(31);return V(Math.cos(e)*Math.sin(a),Math.sin(e),-Math.cos(e)*Math.cos(a));})(),side:V(0,.08,-1),end:V(-1,.08,0),plan:V(0,1,.0001)};
+  const dirs={iso:(()=>{const a=THREE.MathUtils.degToRad(142),e=THREE.MathUtils.degToRad(31);return V(Math.cos(e)*Math.sin(a),Math.sin(e),-Math.cos(e)*Math.cos(a));})(),side:V(0,.08,-1),end:V(-1,.08,0),plan:V(0,1,.0001)};
   const d=dirs[v].clone().normalize();
   ortho.position.copy(c).addScaledVector(d,200);ctlO.target.copy(c);ortho.up.set(0,1,0);
   fitZoom(v);ctlO.update();resize();
 }
 let base=1;
-function fitZoom(v){const {S,L,ridge}=P;base=v==='end'?Math.max(S*1.9,ridge*2.6):v==='plan'?Math.max(L*1.9,S*3.6):Math.max(L*1.75,S*3.4,(ridge+14)*2);if(fig.clientWidth<fig.clientHeight)base*=1.12;ortho.zoom=1;}
+function fitZoom(v){const {S,L,ridge}=P;base=v==='end'?Math.max(S*1.9,ridge*2.6):v==='plan'?Math.max(L*1.9,S*4):Math.max(L*1.9,S*4.1,(ridge+14)*2);if(fig.clientWidth<fig.clientHeight)base*=1.12;ortho.zoom=1;}
 function resize(){
   const w=fig.clientWidth,h=fig.clientHeight,asp=w/h;
   renderer.setSize(w,h,false);lr.setSize(w,h);
@@ -743,9 +985,13 @@ const ROWS=[
   {id:'dob',grp:'clad',name:'Доборные элементы и саморезы',sub:'конёк, углы, откосы окон и ворот, ≈6 саморезов на м²',unit:'м.п.',q:p=>p.dob,price:2600+0,on:true,extra:p=>(p.aWall+p.aRoof)*6*38},
   {id:'cladw',grp:'clad',name:'Монтаж обшивки стен и кровли',sub:'работа с автовышкой',unit:'м²',q:p=>p.aWall+p.aRoof,price:1900,on:true},
   {id:'found',grp:'found',name:'Фундаменты под колонны и фахверк, фундаментная балка',sub:'земляные работы, опалубка, арматура А500С, бетон B25, анкеры М24',unit:'м³',q:p=>p.cv,price:98000,on:true},
-  {id:'road',grp:'road',name:'Проезд 7 м вдоль цеха и связь с проездом базы',sub:'выемка 0,4 м, геоткань, щебень фр. 20–40 слоем 200 мм, уплотнение катком',unit:'м²',q:p=>p.roadA,price:6500,on:true},
+  {id:'road',grp:'road',name:'Бетонное покрытие всей территории, 200 мм',sub:'щебёночное основание 300 мм, бетон B25 с сеткой, нарезка швов 6 × 6 м',unit:'м²',q:p=>p.roadA,price:13500,on:true},
+  {id:'fence',grp:'road',name:'Ограждение 2 м по периметру, откатные ворота 6 м, шлагбаум и КПП 3 × 2,5 м',sub:'≈ 280 м забора, будка КПП с отоплением и светом',unit:'компл',q:()=>1,price:9800000,on:true},
+  {id:'lineG',grp:'equip',name:'Линия сухих смесей «серая», MAB, 15–20 т/ч',sub:'по КП 320 000 $ без НДС, курс 510 ₸/$; 4 силоса, весы 5 т, смеситель 4 т, ротор, паллетайзер',unit:'компл',q:()=>1,price:163200000,on:true},
+  {id:'lineW',grp:'equip',name:'Линия сухих смесей «белая», MAB, 8–10 т/ч',sub:'по КП 145 600 $ без НДС, курс 510 ₸/$; 4 силоса, весы 3 т, смеситель 2 т, 2 фасовки',unit:'компл',q:()=>1,price:74256000,on:true},
+  {id:'dryer',grp:'equip',name:'Сушильный комплекс песка 20 т/ч',sub:'барабан 10 × 1,4 м, газовая горелка ≈ 1,2 МВт, бункер 3 т, конвейер 15 м, циклон, дымосос, элеватор; оценка',unit:'компл',q:()=>1,price:32000000,on:true},
   {id:'boiler',grp:'boiler',name:'Угольная котельная 300 кВт',sub:'блок-модуль, котёл КВр-0,3, дымовая труба 16 м, насосы, 6–8 воздухонагревателей, трубопроводы',unit:'компл',q:()=>1,price:15500000,on:true},
-  {id:'ktp',grp:'ktp',name:'КТПН 10/0,4 кВ с трансформатором 400 кВА',sub:'под заявленные 300 кВА; подстанция, ввод, кабель до щита цеха, учёт',unit:'компл',q:()=>1,price:14500000,on:true},
+  {id:'ktp',grp:'ktp',name:'КТПН 10/0,4 кВ с трансформатором 400 кВА',sub:'под линии ССС, сушку, кран и котельную; подстанция, ввод, кабель до щита, учёт',unit:'компл',q:()=>1,price:14500000,on:true},
   {id:'insul',grp:'opt',name:'Утепление стен и кровли, минвата 100 мм',sub:'чтобы котельная 300 кВт держала +16 °C при −31 °C',unit:'м²',q:p=>p.aWall+p.aRoof,price:6800,on:false},
   {id:'erect',grp:'opt',name:'Монтаж металлокаркаса',sub:'если не своими силами; автокран 25 т, бригада',unit:'т',q:p=>p.tot,price:135000,on:false},
   {id:'floor',grp:'opt',name:'Бетонный пол 200 мм с топпингом',unit:'м²',q:p=>p.S*p.L,price:14500,on:false},
@@ -795,11 +1041,11 @@ function renderScope(){
     {cls:'main',code:'КМ · КАРКАС',t:'Металлокаркас',li:[`${p.nb+1} рам, ${p.nCol} колонн I 25`,`${nf0(p.tot,1)} т металла с узлами`,'Подкрановые балки и рельс КР-70','Доставка до Астаны, без монтажа'],pr:grpSum('frame'),ps:p.L===80?'фиксированная цена':'≈ пересчёт от 27,5 млн за 21×80'},
     {code:'АР · ОБШИВКА',t:'Профлист стены и кровля',li:[`Стены ${nf0(p.aWall*1.05)} м², С21-0,5`,`Кровля ${nf0(p.aRoof*1.08)} м², Н60-0,7`,`${p.nw} окон, ${p.gateBays.length} проёма ворот 4×5 м`,'Материал и монтаж'],pr:grpSum('clad'),ps:'оценка: материал + работа'},
     {code:'КЖ · ФУНДАМЕНТ',t:'Фундаменты',li:[`${p.nCol} столбчатых под колонны 2,1×2,1 м`,'Фахверк и фундаментная балка по контуру',`Бетон B25 ${nf0(p.cv)} м³, арматура ${nf0(p.cv*.085,1)} т`,'Глубина 2,2 м под промерзание Астаны'],pr:grpSum('found'),ps:'оценка под ключ'},
-    {code:'ГП · ПРОЕЗД',t:'Проезд к воротам',li:[`7 м вдоль восточной стены, ${nf0(p.roadA)} м²`,'Щебень 200 мм по геоткани','Стыкуется с проездом базы','Разворот фуры во дворе'],pr:grpSum('road'),ps:'оценка под ключ'},
+    {code:'ГП · ТЕРРИТОРИЯ',t:'Бетон, забор, КПП',li:[`Бетон 200 мм по всей территории, ${nf0(p.roadA)} м²`,'Разметка проезда вдоль ворот','Забор 2 м, откатные ворота 6 м','КПП со шлагбаумом на въезде'],pr:grpSum('road'),ps:'оценка под ключ'},
     {code:'ОВ · ОТОПЛЕНИЕ',t:'Котельная на угле 300 кВт',li:[`С утеплением цеху нужно ≈ ${nf0(q.ins)} кВт — двойной запас`,'Блок-модуль 6×4 м, котёл КВр-0,3, труба 16 м','Воздухонагреватели в цехе',`Уголь ≈ ${nf0(q.coal)} т за сезон`],pr:grpSum('boiler'),ps:'оценка с монтажом'},
-    {code:'ЭС · ЭЛЕКТРИКА',t:'Трансформатор 300 кВА',li:['КТПН 10/0,4 кВ, ТМГ-400 кВА','300 кВА в типовом ряду нет: 250 или 400','Нужны ТУ от энергосети','Кабель до вводного щита цеха'],pr:grpSum('ktp'),ps:'оценка, без платы за ТУ'},
+    {code:'ЭС · ЭЛЕКТРИКА',t:'Трансформатор 400 кВА',li:['Нагрузка ≈ 370 кВт установленной, ≈ 260 кВт в работе','300 кВА уже мало: 400 кВА, лучше 630','КТПН 10/0,4 кВ, нужны ТУ от энергосети','Кабель до вводного щита цеха'],pr:grpSum('ktp'),ps:'оценка, без платы за ТУ'},
     {cls:'warn',code:'ВАЖНО',t:'Утепление',li:['Одинарный профлист зимой не держит тепло',`С минватой 100 мм: ≈ ${nf0(q.ins)} кВт`,`Без утепления: ≈ ${nf0(q.bare)} кВт — котла 300 кВт мало`],pr:rowSum(ROWS.find(r=>r.id==='insul')),ps:state.insul.on?'включено в смету':'в смете выключено, включите при необходимости'},
-    {code:'ЛОГИСТИКА',t:'Доставка и разгрузка',li:[`${trucks} ${trucks<5?'фуры':'фур'} по 20 т, длинномер 13,6 м`,'Въезд в северо-восточном углу базы','Разгрузка автокраном 25 т у ворот','Сама доставка — в цене каркаса'],prText:'в цене каркаса',ps:'кран на разгрузку — отдельно'},
+    {cls:'main',code:'ТХ · ОБОРУДОВАНИЕ',t:'Линии ССС и сушка песка',li:['Серая линия 15–20 т/ч — у восточной стены','Белая линия 8–10 т/ч — у западной стены','8 силосов по 30 т у северного торца','Сушка песка 20 т/ч снаружи с запада'],pr:grpSum('equip'),ps:'КП MAB + оценка сушки, без НДС'},
   ];
   $('scopeCards').innerHTML=cards.map(c=>`<div class="sc ${c.cls||''}"><span class="code">${c.code}</span><h3>${c.t}</h3><ul>${c.li.map(x=>`<li>${x}</li>`).join('')}</ul><div class="price">${c.prText||mln(c.pr)+' млн ₸'}<small>${c.ps}</small></div></div>`).join('');
 }
@@ -814,7 +1060,7 @@ const EXIST=[
   {p:[[525,265],[422,540],[457,553],[560,278]],h:3.5},
   {p:[[530,335],[615,372],[607,395],[515,365]],h:3.5},
 ];
-const ROAD_T=[930,455],ROAD_E=[1075,366]; // точка на существующем проезде и въезд на базу
+const HXP=41.4,ROAD_T=[930,455],ROAD_E=[1075,366]; // точка на существующем проезде и въезд на базу
 const svg=$('siteSvg'),bld=$('bld');
 const U=[-0.3607,0.9328]; // вдоль западной стороны, на юг
 const ANG0=Math.atan2(U[1],U[0])*180/Math.PI;
@@ -841,16 +1087,28 @@ function renderSite(){
   bld.innerHTML='';
   const rt=$('route');rt.innerHTML='';
   const N=toW(-L/2-4,-S/2-4.5);
-  el('line',{x1:N[0],y1:N[1],x2:ROAD_T[0],y2:ROAD_T[1],stroke:'#8d8a83','stroke-opacity':.8,'stroke-width':7*PXM,'stroke-linecap':'round'},rt);
   const gp=P.gateBays.map(k=>toW(-L/2+k*B+B/2,-S/2-4.5));
   const pts=[ROAD_E,ROAD_T,N,...gp];
   el('polyline',{points:pts.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#f2c230','stroke-width':3.2,'stroke-dasharray':'12 8','stroke-linejoin':'round','marker-end':'url(#arr)'},rt);
   const lt={'font-family':'JetBrains Mono,monospace','font-size':16,'font-weight':500,fill:'#fff',stroke:'#000','stroke-width':3,'paint-order':'stroke'};
   el('circle',{cx:ROAD_E[0],cy:ROAD_E[1],r:8,fill:'#f2c230',stroke:'#000','stroke-width':2},rt);
-  el('text',{...lt,x:ROAD_E[0]-14,y:ROAD_E[1]-16,'text-anchor':'end','font-size':18,'font-weight':600},rt).textContent='ВЪЕЗД';
-  el('text',{...lt,x:(ROAD_E[0]+ROAD_T[0])/2+14,y:(ROAD_E[1]+ROAD_T[1])/2+22},rt).textContent='проезд базы';
+  el('text',{...lt,x:ROAD_E[0]-14,y:ROAD_E[1]-16,'text-anchor':'end','font-size':18,'font-weight':600},rt).textContent='КПП · ВЪЕЗД';
+  el('rect',{x:ROAD_E[0]-34,y:ROAD_E[1]+8,width:22,height:18,fill:'#eef0f1',stroke:'#000','stroke-width':2,transform:`rotate(18 ${ROAD_E[0]} ${ROAD_E[1]})`},rt);
+  
   const g=el('g',{transform:`translate(${pose.x} ${pose.y}) rotate(${pose.a}) scale(${PXM})`},bld);
-  el('rect',{x:-L/2-6,y:-S/2-8,width:L+6,height:7,fill:'#8d8a83','fill-opacity':.8,stroke:'#fff','stroke-width':.15},g);
+  for(const y of[-S/2-1.2,-S/2-7.8])el('line',{x1:-L/2-6,y1:y,x2:L/2,y2:y,stroke:'#f2c230','stroke-width':.25,'stroke-dasharray':'1.8 1.2'},g);
+  // оборудование и сушка (в координатах цеха: x — вдоль, от северного торца; z — от ряда А)
+  const q3=(x,z)=>[x-L/2,z-S/2];
+  const eg=el('g',{},g);
+  const R2=(x0,z0,x1,z1,f,o=.9)=>{const [a,b]=q3(x0,z0);el('rect',{x:a,y:b,width:x1-x0,height:z1-z0,fill:f,'fill-opacity':o,stroke:'#1b1d1f','stroke-width':.12},eg);};
+  const C2=(x,z,r,f)=>{const [a,b]=q3(x,z);el('circle',{cx:a,cy:b,r,fill:f,stroke:'#1b1d1f','stroke-width':.12},eg);};
+  [1.4,4.0,6.6,9.2,11.8,14.4,17.0,19.6].forEach(z=>C2(-3.4,z,1.25,'#e4e6e8'));
+  R2(6,1.2,11.6,8.8,'#f4a900',.55);R2(6,13,11.2,20,'#f4a900',.55);R2(21.6,1.6,28.4,8.4,'#383e42',.5);
+  R2(31,1,48.5,8.6,'#dacdb0',.7);R2(24,12.8,48.5,20.3,'#dacdb0',.7);
+  const DZ=S+8;R2(12.6,DZ-.7,22.6,DZ+.7,'#8e979f');R2(23.4,DZ-.9,25.9,DZ+.9,'#c8243a');R2(36.4,DZ-1.6,39.6,DZ+1.6,'#e4e6e8');
+  {const [a,b]=q3(23.9,DZ),[c,d]=q3(37.1,DZ);el('line',{x1:a,y1:b,x2:c,y2:d,stroke:'#383e42','stroke-width':.9},eg);}
+  {const [a,b]=q3(11.8,DZ),[c,d]=q3(-1.2,S+2.2);el('line',{x1:a,y1:b,x2:c,y2:d,stroke:'#383e42','stroke-width':.7},eg);}
+  C2(9,DZ+3.2,.8,'#e4e6e8');C2(5.4,DZ+3.2,.4,'#8e979f');R2(-1.6,S+1.9,-.8,S+2.5,'#383e42');R2(HXP,DZ-.6,HXP+4.4,DZ+1.5,'#f2c230');
   el('rect',{x:-L/2,y:-S/2,width:L,height:S,fill:'url(#hatch)',stroke:'#fff','stroke-width':.45},g);
   el('rect',{x:-L/2,y:-S/2,width:L,height:S,fill:'none',stroke:'#c8243a','stroke-width':.25},g);
   for(let k=1;k<nb;k++)el('line',{x1:-L/2+k*B,y1:-S/2,x2:-L/2+k*B,y2:S/2,stroke:'#fff','stroke-opacity':.45,'stroke-width':.12},g);
@@ -871,9 +1129,13 @@ function renderSite(){
   el('text',{...tf,x:0,y:0,'font-size':1.9,'font-weight':600},lg).textContent='котельная · КТП';
   const rg=el('g',{transform:`translate(${L/2-12} ${-S/2-4.5})${flip?' rotate(180)':''}`},g);
   el('text',{...tf,x:0,y:0,'font-size':1.9,'font-weight':600},rg).textContent='проезд 7 м';
+  const dg=el('g',{transform:`translate(${17.6-L/2} ${S+8+3-S/2})${flip?' rotate(180)':''}`},g);
+  el('text',{...tf,x:0,y:0,'font-size':1.9,'font-weight':600},dg).textContent='сушка песка 20 т/ч';
+  const sg2=el('g',{transform:`translate(${-6.2-L/2} 0) rotate(${flip?-90:90})`},g);
+  el('text',{...tf,x:0,y:0,'font-size':1.8,'font-weight':600},sg2).textContent='силосы 8 × 30 т';
   // fit check
   const samples=[];for(let t=0;t<=L;t+=.5)for(const y of[-S/2,S/2,0])samples.push([t-L/2,y]);
-  const ext=[[-L/2+2,-S/2-14],[-L/2+18.6,-S/2-14.4],[-L/2+2,-S/2-9.3],[-L/2+18.6,-S/2-9.3],[-L/2-6,-S/2-8],[L/2,-S/2-8]];
+  const ext=[[12.6-L/2,S/2+8+3.2],[44.5-L/2,S/2+8+1.5],[-4.7-L/2,-S/2],[-4.7-L/2,S/2],[-L/2+2,-S/2-14],[-L/2+18.6,-S/2-14.4],[-L/2+2,-S/2-9.3],[-L/2+18.6,-S/2-9.3],[-L/2-6,-S/2-8],[L/2,-S/2-8]];
   let inside=0,tot=0,minIn=L,maxIn=0;const byT={};
   for(const [lx,ly] of samples){const [wx,wy]=toW(lx,ly);const ok=inPoly(wx,wy);byT[lx]=(byT[lx]??true)&&ok;}
   let ins=0;for(const k in byT)if(byT[k])ins++;
@@ -883,10 +1145,10 @@ function renderSite(){
   // отступ от углов корпуса до границы участка
   const dSeg=(px,py,[ax,ay],[bx,by])=>{const vx=bx-ax,vy=by-ay,t=Math.max(0,Math.min(1,((px-ax)*vx+(py-ay)*vy)/(vx*vx+vy*vy)));return Math.hypot(px-ax-t*vx,py-ay-t*vy);};
   const gap=Math.min(...[[-L/2,-S/2],[L/2,-S/2],[L/2,S/2],[-L/2,S/2]].map(([lx,ly])=>{const [x,y]=toW(lx,ly);return Math.min(...PLOT.map((p,i)=>dSeg(x,y,p,PLOT[(i+1)%4])));}))/PXM;
-  if(out===0){st.className='status ok';st.innerHTML=`<b>Вписывается.</b> <span>Корпус ${nf0(S,S%1?1:0)} × ${L} м целиком в границах участка, ближайший угол — в ${nf0(gap,1)} м от забора${extOut?'. Котельная или проезд выходят за контур — сдвиньте корпус':''}.</span>`;}
+  if(out===0){st.className='status ok';st.innerHTML=`<b>Вписывается.</b> <span>Корпус ${nf0(S,S%1?1:0)} × ${L} м целиком в границах участка, ближайший угол — в ${nf0(gap,1)} м от забора${extOut?'. Котельная, сушка или проезд выходят за контур — сдвиньте корпус':''}.</span>`;}
   else{st.className='status';st.innerHTML=`<b>Не вписывается.</b> <span>Участок по замеру ≈ 74 × 68 м. Корпус длиной ${L} м выходит за границу на ≈ ${out} м: сдвиньте его, поверните или выберите длину короче.</span>`;}
   $('kvGap').textContent=out===0?`до забора не меньше ${nf0(gap,1)} м, до сущ. корпуса ≈ 3 м`:'—';
-  $('kvRoad').textContent=`7 м × ${nf0(L+6)} м вдоль восточной стены + связь с проездом базы, всего ${nf0(P.roadA)} м²`;
+  $('kvRoad').textContent=`бетон 200 мм по всей территории, ${nf0(P.roadA)} м², разметка проезда 7 м у ворот`;
   renderRoute();
   $('kvBld').textContent=`${nf0(S,S%1?1:0)} × ${L} м, ${nf0(S*L)} м²`;
   $('kvCover').textContent=`${nf0(S*L/5157*100)} % участка`;
@@ -894,12 +1156,12 @@ function renderSite(){
 function renderRoute(){
   const p=P,q=heat(),trucks=Math.max(1,Math.ceil(p.tot/20)),raf=Math.hypot(p.S/2,p.S/2*p.i);
   const items=[
-    ['Дорога','Подъезд с севера','Дорога огибает базу по северной стороне. Фура идёт по ней до северо-восточного угла участка — там уже накатан въезд.'],
-    ['Въезд','Северо-восточный угол','Существующий проезд базы ведёт во двор. Проём в ограждении нужен не уже 6 м, чтобы длинномер прошёл без манёвров.'],
-    ['Проезд',`Новый, 7 м · ${nf0(p.roadA)} м²`,`От проезда базы к северному торцу цеха и вдоль всей восточной стены, ${nf0(p.L+6)} м. Щебень 200 мм по геоткани держит фуру 20 т и автокран.`],
-    ['Доставка',`${trucks} ${trucks<5?'фуры':'фур'} · ${nf0(p.tot,1)} т`,`Длинномер 13,6 м, до 20 т. Самые длинные элементы: колонна ≈ ${nf0(p.H,1)} м, полуригель ≈ ${nf0(raf,1)} м, подкрановая балка — секциями по ${nf0(p.B,1)} м. Всё ложится в полуприцеп.`],
-    ['Разгрузка','У ворот, автокраном 25 т',`Фура встаёт на проезд напротив ворот, кран — рядом. Металл раскладывается по осям 1–${p.nb+1} прямо у фундаментов, без перевалки.`],
-    ['Уголь и свет',`≈ ${nf0(q.coal)} т угля за сезон`,'Самосвал заезжает по тому же проезду к складу угля у котельной. КТП стоит у проезда: к ней подводится ВЛ 10 кВ по ТУ энергосети.'],
+    ['Въезд и КПП','Северо-восточный угол',`Дорога огибает базу с севера. На въезде — будка КПП, шлагбаум и откатные ворота 6 м: длинномер и цементовоз проходят без манёвров.`],
+    ['Покрытие',`Бетон · ${nf0(p.roadA)} м²`,'Вся территория в бетоне 200 мм по щебню, швы 6 × 6 м. Проезд 7 м вдоль восточной стены размечен жёлтым, у ворот — площадки разгрузки.'],
+    ['Доставка',`${trucks} ${trucks<5?'фуры':'фур'} · ${nf0(p.tot,1)} т металла`,`Длинномер 13,6 м, до 20 т. Самые длинные элементы: колонна ≈ ${nf0(p.H,1)} м, полуригель ≈ ${nf0(raf,1)} м, подкрановая балка — секциями по ${nf0(p.B,1)} м.`],
+    ['Силосы','Цементовоз к северному торцу','8 силосов по 30 т стоят на общей плите у северного торца. Цементовоз подъезжает по бетону от КПП и закачивает цемент пневматикой.'],
+    ['Песок','Погрузчик → бункер 3 т → сушка','Погрузчик 3 т засыпает сырой песок в бункер с решёткой. Конвейер 15 м подаёт его в барабан, газовая горелка сушит 20 т/ч, элеватор поднимает сухой песок в силос.'],
+    ['Уголь, газ и свет',`≈ ${nf0(q.coal)} т угля за сезон`,'Уголь к котельной — самосвалом по тому же бетону. К горелке нужен газ ≈ 120 м³/ч; если газа на базе нет — горелка на дизеле или сжиженном газе. КТП стоит у проезда.'],
   ];
   $('routeList').innerHTML=items.map(([c,b,t])=>`<li><span class="code">${c}</span><b>${b}</b><span>${t}</span></li>`).join('');
 }
@@ -920,6 +1182,7 @@ document.querySelectorAll('[data-len]').forEach(b=>b.onclick=()=>{
   syncLenSeg();build();view(curView);
 });
 
+$('namesChk').addEventListener('change',e=>fig.classList.toggle('names',e.target.checked));
 // crane animation
 let play=!matchMedia('(prefers-reduced-motion: reduce)').matches,t=0,last=performance.now();
 const bp=$('bPlay');bp.setAttribute('aria-pressed',play);bp.textContent=play?'Кран едет':'Кран стоит';
@@ -937,6 +1200,6 @@ function tick(now){
   ctl.update();renderer.render(scene,cam);lr.render(scene,cam);
   requestAnimationFrame(tick);
 }
-build();setLayers(STAGES.stFull);view('iso');requestAnimationFrame(tick);
+build();setLayers(STAGES.stEquip);view('iso');requestAnimationFrame(tick);
 }
 </script>
