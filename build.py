@@ -1,8 +1,8 @@
 import base64,pathlib
 d=pathlib.Path(__file__).parent
 SITE_URL='https://cehastana.vercel.app'
-OG_IMG=SITE_URL+'/og-21x50.jpg'  # баннер 1200×630 лежит в корне сайта на Vercel
-OG_CDN='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-21x50.jpg'  # запасной адрес той же картинки
+OG_IMG=SITE_URL+'/og-21x50-2.jpg'  # баннер 1200×630 лежит в корне сайта на Vercel
+OG_CDN='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-21x50-2.jpg'  # запасной адрес той же картинки
 t=(d/'src/template.html').read_text()
 b=base64.b64encode((d/'src/site.jpg').read_bytes()).decode()
 page=t.replace('__SITE__',b)
