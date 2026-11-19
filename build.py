@@ -1,7 +1,7 @@
 import base64,pathlib
 d=pathlib.Path(__file__).parent
 SITE_URL='https://cehastana.vercel.app'
-OG_IMG='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-share-4.jpg'  # картинка с CDN GitHub, не зависит от Vercel  # поменяйте, если проект в Vercel назван иначе
+OG_IMG='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-share-5.jpg'  # картинка с CDN GitHub, не зависит от Vercel  # поменяйте, если проект в Vercel назван иначе
 t=(d/'src/template.html').read_text()
 b=base64.b64encode((d/'src/site.jpg').read_bytes()).decode()
 page=t.replace('__SITE__',b)
