@@ -1,14 +1,14 @@
 import base64,pathlib
 d=pathlib.Path(__file__).parent
 SITE_URL='https://cehastana.vercel.app'
-OG_IMG='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-share.jpg'  # картинка с CDN GitHub, не зависит от Vercel  # поменяйте, если проект в Vercel назван иначе
+OG_IMG='https://cdn.jsdelivr.net/gh/qazaqboss/cehastana@main/og-share-2.jpg'  # картинка с CDN GitHub, не зависит от Vercel  # поменяйте, если проект в Vercel назван иначе
 t=(d/'src/template.html').read_text()
 b=base64.b64encode((d/'src/site.jpg').read_bytes()).decode()
 page=t.replace('__SITE__',b)
 (d/'artifact').mkdir(exist_ok=True)
 (d/'artifact/index.html').write_text(page)  # версия для Artifact
-title='Цех 21×80 м · Astana Baza'
-desc='Металлокаркас с мостовым краном 10 т: 3D-модель КМД, генплан, смета. Каркас с доставкой до Астаны — 27,5 млн ₸.'
+title='Цех 21×50 м · Astana Baza'
+desc='Металлокаркас 21×50 м с мостовым краном 10 т на территории базы: 3D-модель, генплан, подъезд и смета.'
 head=f'''<!doctype html>
 <html lang="ru"><head>
 <meta charset="utf-8">
@@ -21,7 +21,7 @@ head=f'''<!doctype html>
 <meta property="og:image" content="{OG_IMG}">
 <meta property="og:image:secure_url" content="{OG_IMG}">
 <meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:alt" content="Цех 21×80 м — металлокаркас, 27,5 млн ₸ с доставкой до Астаны">
+<meta property="og:image:alt" content="Цех 21×50 м с мостовым краном на Astana Baza">
 <meta property="og:site_name" content="Astana Baza">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
