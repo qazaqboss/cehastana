@@ -235,7 +235,7 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
       <label class="chk"><input type="checkbox" data-l="wall" checked> Стеновой профлист</label>
       <label class="chk"><input type="checkbox" data-l="roof" checked> Кровля</label>
       <label class="chk"><input type="checkbox" data-l="util" checked> Котельная и КТП</label>
-      <label class="chk"><input type="checkbox" data-l="site" checked> Территория базы: снимок, постройки, проезд</label>
+      <label class="chk"><input type="checkbox" data-l="site" checked> Территория базы: снимок и проезд</label>
       <label class="chk"><input type="checkbox" data-l="dims" checked> Оси и размеры</label>
       <div class="btns"><button id="bPlay" aria-pressed="true">Кран едет</button></div>
       <label for="spd" class="note" style="display:block">Скорость крана</label>
@@ -265,14 +265,6 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
         <image href="data:image/jpeg;base64,__SITE__" x="0" y="0" width="1232" height="982"/>
         <rect x="0" y="0" width="1232" height="982" fill="#000" fill-opacity=".2"/>
         <polygon id="plot" points="553,200 1125,382 948,912 355,712" fill="#ffffff" fill-opacity=".05" stroke="#fff" stroke-width="3" stroke-dasharray="12 8"/>
-        <g id="exist" fill="#ffffff" fill-opacity=".16" stroke="#fff" stroke-width="1.6" stroke-dasharray="4 3">
-          <polygon points="550,207 737,270 720,330 527,265"/><polygon points="737,270 830,302 825,320 733,290"/>
-          <polygon points="525,265 422,540 457,553 560,278"/><polygon points="530,335 615,372 607,395 515,365"/>
-        </g>
-        <g font-family="JetBrains Mono,monospace" font-size="15" fill="#fff" stroke="#000" stroke-width="3" paint-order="stroke">
-          <text x="628" y="252" transform="rotate(18 628 252)" text-anchor="middle">сущ. корпус</text>
-          <text x="470" y="420" transform="rotate(-69 470 420)" text-anchor="middle">сущ. постройки</text>
-        </g>
         <g id="plotDims" font-family="JetBrains Mono,monospace" font-size="20" fill="#fff" stroke="#000" stroke-width="4" paint-order="stroke"></g>
         <g id="route"></g>
         <g id="bld"></g>
@@ -315,7 +307,6 @@ html{scroll-behavior:smooth;scroll-padding-top:60px}
         <span><i style="background:#8d8a83"></i>новый проезд 7 м</span>
         <span><i class="ln"></i>маршрут фуры</span>
         <span><i style="background:#f2c230"></i>ворота 4 × 5 м</span>
-        <span><i class="ds"></i>существующие постройки</span>
       </div>
       <p class="note">Масштаб снят с вашего замера: 287,65 м по контуру и 5 157 м², точность ±1,5 м. Перед проектом фундаментов нужна геодезическая съёмка и проверка, что под цехом нет сетей.</p>
     </div>
@@ -632,10 +623,7 @@ function build(){
     const sg=new THREE.Group(),ig=new THREE.Group();layers.site.add(sg);sg.add(ig);
     const W=IMG_W/PXM,Hh=IMG_H/PXM;
     const pl=new THREE.Mesh(new THREE.PlaneGeometry(W,Hh),M.site);pl.rotation.x=-Math.PI/2;pl.position.set(W/2,-0.012,Hh/2);pl.receiveShadow=true;ig.add(pl);
-    for(const b of EXIST){const sh=new THREE.Shape(b.p.map(([x,y])=>new THREE.Vector2(x/PXM,-y/PXM)));
-      const m=new THREE.Mesh(new THREE.ExtrudeGeometry(sh,{depth:b.h,bevelEnabled:false}),M.exist);m.rotation.x=-Math.PI/2;m.castShadow=m.receiveShadow=true;ig.add(addEdges(m));}
     ig.position.set(-pose.x/PXM,0,-pose.y/PXM);sg.rotation.y=pose.a*Math.PI/180;sg.position.set(L/2,0,S/2);
-    const ex=pxTo3(EXIST[0].c[0],EXIST[0].c[1],L,S);label('существующий корпус базы','tag',V(ex.x,6.5,ex.z),'site');
   }
   box('site',L+6,.05,7,V(L/2-3,.025,-4.5),M.road,false);
   const RT=pxTo3(ROAD_T[0],ROAD_T[1],L,S),a0=V(-4,0,-4.5),rdx=RT.x-a0.x,rdz=RT.z-a0.z,rlen=Math.hypot(rdx,rdz);
